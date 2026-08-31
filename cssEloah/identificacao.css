@@ -1,4 +1,170 @@
+body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;
+}
+
+
 /* LOGIN */
+
+
+.login-container,
+.cadastro-container {
+    background-color: var(--color-navy-dark);
+    border: 1px solid rgba(51, 65, 92, 0.4);
+    border-radius: 20px;
+    width: 100%;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin: auto;
+
+}
+
+.logo-form {
+    max-width: 150px;
+    height: auto;
+    margin: 0 auto 15px auto;
+    display: block;
+}
+
+.login-container {
+    max-width: 420px;
+    padding: 50px 40px;
+}
+
+.cadastro-container {
+    max-width: 550px;
+    padding: 45px 40px;
+    margin-bottom: 60px;
+    margin-top: 70px;
+}
+
+
+.login-container:hover,
+.cadastro-container:hover {
+    border-color: var(--color-sky-light);
+    box-shadow: 0 0 15px rgba(133, 181, 203, 0.2);
+}
+
+.login-header,
+.cadastro-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.login-header h1,
+.cadastro-header h1 {
+    color: var(--white);
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+.login-header p,
+.cadastro-header p {
+    color: var(--color-sky-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: var(--white);
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.input-control {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-slate-blue);
+    color: var(--white);
+    padding: 14px 15px;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+
+.input-control:focus {
+    border-color: var(--color-sky-light);
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 8px rgba(133, 181, 203, 0.25);
+}
+
+.input-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+
+.form-separacao {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.form-separacao .form-group {
+    flex: 1;
+}
+
+.btn-submit {
+    width: 100%;
+    background-color: var(--color-deep-blue);
+    color: var(--white);
+    border: none;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 450;
+}
+
+.btn-submit:hover {
+    background-color: #39678f;
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(33, 65, 116, 0.4);
+}
+
+.login-footer,
+.cadastro-footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: black;
+}
+
+.login-footer a,
+.cadastro-footer a {
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.login-footer a:hover,
+.cadastro-footer a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+
 
 
 

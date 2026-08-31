@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="cssEloah/identificacao.css">
     <link rel="icon" type="image/png" href="">
-    <title>Página de Cadastro - DoceMaria</title>
+    <title>Página de Login - DoceMaria</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
     
        <div class="login-container">
         <div class="login-header">
-            <img src="img/logosemfundo.png" class="logo-form">
+            <img src="imagens/logo.png" class="logo-form">
             <h1>Bem vindo de volta!</h1>
             <p>Faça login para acessar sua conta</p>
         </div>
