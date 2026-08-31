@@ -1,13 +1,12 @@
 <header>
     <nav>
             <ul class="menu-superior">
-                <h1 class="logo_menu">Beatriz Farias</h1>
-
+                <h1 class="logo_menu">Doce Maria</h1> <!-- Vamos mudar depois para colocar a foto da logo-->
                 <li>
-                    <a class="dropbtn" href="./login.php">Login<img src="./imagem/cadeado.png" width="25px" alt="Cadeado"></a>
+                    <a class="btnentrar" href="./login.php">Entrar</a>
                 </li>
                 <li>
-                    <a class="dropbtn" href="./index.php">Home<img src="./imagem/home.png" width="25px" alt="Home"></a>
+                    <a class="btncad" href="./index.php">Cadastre-se</a>
                 </li>
             </ul>
         </nav>
