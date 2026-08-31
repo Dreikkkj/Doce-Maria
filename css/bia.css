@@ -44,6 +44,7 @@ main {
 .menu-superior li:first-of-type {
     margin-left: auto;
 }
+
 .btnentrar {
     display: block;
     color: #ffffff;
@@ -85,7 +86,7 @@ main {
     border-width: 0.5px;
     border-radius: 36px;
     border-color: #623a25;
-    background-color:#eaa4b1;
+    background-color: #eaa4b1;
 }
 
 .logo_menu {
@@ -94,6 +95,79 @@ main {
     text-align: left;
 }
 
-.fthome{
+.fthome {
     width: 100%;
+}
+
+.container-foto {
+    position: relative;
+    width: 100%;
+    margin-top: 105px;
+}
+
+
+.texto-foto {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    font-family: "Qwitcher Grypen", cursive;
+    font-weight: 700;
+    font-size: 130px;
+    font-style: normal;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+}
+
+.btn-foto {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    font-size: 40px;
+    font-family: "Belleza", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border: solid #623822;
+    padding: 0px 50px;
+    border-radius: 36px;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    text-align: center;
+    background-color: #623822;
+    margin: 0;
+}
+
+.btn-foto:hover {
+    background-color: #62382296;
+}
+
+.bck-pink {
+    background-color: #eaa4b1;
+    width: 100%;
+    height: 140px;
+}
+
+/* best-sellers */
+
+.txtseller {
+    font-size: 30px;
+    margin-left: 95px;
+    margin-top: 150px;
+}
+
+.brw {
+    background-color: #ce9f7b;
+    border-radius: 20px;
+    padding: 3px 6px;
+}
+
+.box-seller {
+    background-color: #dce3eb;
+    width: 1500px;
+    height: 400px;
+    position: absolute;
+    border-radius: 20px;
+    top: 130%;
+    left: 10%;
 }
