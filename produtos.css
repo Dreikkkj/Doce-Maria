@@ -1,0 +1,31 @@
+body{
+    background-color: #fae8e8;
+}
+.card-donuts{
+    background-color: #f1f7fd;
+    border-collapse: collapse;
+    width: 280px;
+    height: 320px;
+    margin: 40px auto;
+    text-align: center;
+
+    margin-top: 240px;
+
+    font-family: "Oxanium", sans-serif;
+    color:  #f1aaa9;
+    font-size: 20px;
+
+    border-radius: 10px;
+    overflow: hidden;
+    
+}
+
+.donuts{
+    width: 280px;
+    height:160px;
+}
+
+.donuts2{
+     width: 370px;
+    height:220px;
+}
