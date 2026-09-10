@@ -1,0 +1,99 @@
+body {
+    background-color: #f1f7fd;
+    margin: 0;
+    padding: 0;
+    min-height: 99vh;
+    display: flex;
+    flex-direction: column;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 10px 0px;
+    margin: 0;
+    gap: 15px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+main {
+    flex: 1;
+}
+
+.menu-superior {
+    display: flex;
+    align-items: center;
+    background: #eaa4b1;
+    list-style: none;
+    padding: 0px 0px;
+    margin: 0;
+    padding: 0px 100px;
+    box-sizing: border-box;
+    gap: 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.menu-superior li:first-of-type {
+    margin-left: auto;
+}
+.btnentrar {
+    display: block;
+    color: #ffffff;
+    padding: 13px 27px;
+    text-decoration: none;
+    text-align: center;
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 36px;
+    border-color: #623a25;
+    font-family: "Sora", sans-serif;
+    font-style: normal;
+}
+
+.btnentrar:hover {
+    display: block;
+    color: #ffffff;
+    padding: 13px 27px;
+    text-decoration: none;
+    background-color: #623822;
+    border-radius: 36px;
+    text-align: center;
+    font-family: "Sora", sans-serif;
+}
+
+.btncad {
+    display: block;
+    color: #ffffff;
+    padding: 13px 27px;
+    text-decoration: none;
+    background-color: #623822;
+    border-radius: 36px;
+    text-align: center;
+    font-family: "Sora", sans-serif;
+}
+
+.btncad:hover {
+    border-style: solid;
+    border-width: 0.5px;
+    border-radius: 36px;
+    border-color: #623a25;
+    background-color:#eaa4b1;
+}
+
+.logo_menu {
+    font-size: 40px;
+    color: #75401d;
+    text-align: left;
+}
+
+.fthome{
+    width: 100%;
+}
