@@ -22,122 +22,115 @@
         <div class="container-foto">
             <img src="./imagens/homeft.png" class="fthome">
             <h1 class="texto-foto">Felicidade em cada pedaço</h1>
-            <button type="button" class="btn-foto">Descubra sua Felicidade</button>
+            <a href="#"><button type="button" class="btn-foto">Descubra sua Felicidade</button></a>
         </div>
         <div class="bck-pink"></div>
+
+        <section class="container-creme">
+            <br>
+            <h1 class="title">Nossos Best-<strong class="destaque">Sellers</strong></h1>
+            <div class="grid-best">
+                <div class="grid-seller">
+                    <div class="img-seller">
+                        <img src="./imagens/Doce_Maria.png" />
+                        <p class="destaque-best">Mais Vendido</p>
+                    </div>
+                    <h4 class="nomeProduto">Nome do Produto</h4>
+                    <div class="avaliacoes">
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                    </div>
+                    <p class="price">R$20,00</p>
+                    <a href="#" class="btn-add">Adicionar ao Carrinho</a>
+                </div>
+                <div class="grid-seller">
+                    <div class="img-seller">
+                        <img src="./imagens/Doce_Maria.png" />
+                        <p class="destaque-best">Mais Vendido</p>
+                    </div>
+                    <h4 class="nomeProduto">Nome do Produto</h4>
+                    <div class="avaliacoes">
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                    </div>
+                    <p class="price">R$20,00</p>
+                    <a href="#" class="btn-add">Adicionar ao Carrinho</a>
+                </div>
+                <div class="grid-seller">
+                    <div class="img-seller">
+                        <img src="./imagens/Doce_Maria.png" />
+                        <p class="destaque-best">Mais Vendido</p>
+                    </div>
+                    <h4 class="nomeProduto">Nome do Produto</h4>
+                    <div class="avaliacoes">
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                    </div>
+                    <p class="price">R$20,00</p>
+                    <a href="#" class="btn-add">Adicionar ao Carrinho</a>
+                </div>
+                <div class="grid-seller">
+                    <div class="img-seller">
+                        <img src="./imagens/Doce_Maria.png" />
+                        <p class="destaque-best">Mais Vendido</p>
+                    </div>
+                    <h4 class="nomeProduto">Nome do Produto</h4>
+                    <div class="avaliacoes">
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                        <img src="./imagens/star.png" class="stars" />
+                    </div>
+                    <p class="price">R$20,00</p>
+                    <a href="#" class="btn-add">Adicionar ao Carrinho</a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <br>
+            <h1 class="titlepts">Cadastre-se, faça seus<br> pedidos e acumule<strong class="destaque">pontos</strong>
+            </h1>
+            <h1 class="cfn">Como funciona?</h1>
+            <div class="grid-pts">
+                <div class="box-cfn">
+                    <img src="./imagens/acumule.png" width="230px">
+                    <strong class="txtpt">Acumule Doces</strong>
+                    <p class="txtpts">Ganhe doces a cada compra realizada, sem pagar nenhuma taxa para
+                        participar.</p>
+                </div>
+                <div class="box-cfn">
+                    <img src="./imagens/progresso.png" width="230px">
+                    <strong class="txtpt">Acompanhe o Progresso</strong>
+                    <p class="txtpts">Fique de olho no seu saldo e veja sua evolução rumo aos 255
+                        doces.</p>
+                </div>
+                <div class="box-cfn">
+                    <img src="./imagens/descontos.png" width="230px">
+                    <strong class="txtpt">Desbloqueie Descontos</strong>
+                    <p class="txtpts">Completou a meta? Resgate um super desconto exclusivo para o seu
+                        próximo pedido.</p>
+                </div>
+                <div class="box-cfn">
+                    <img src="./imagens/pecaMais.png" width="230px">
+                    <strong class="txtpt">Peça e Ganhe Mais</strong>
+                    <p class="txtpts">Quanto mais você pede, mais rápido alcança suas recompensas!</p>
+                </div>
+            </div>
+            <a href="#"><button>Criar Conta e Ganhar Pontos</button></a>
+        </section>
+
     </main>
-
-    <section>
-        <h3 class="txtseller">Nossos Best <strong class="brw">Sellers</strong></h3>
-        <div class="box-seller">
-            <div class="box-best">
-                <img src="./imagens/Doce_Maria.png" width="300px">
-                <h3>Nome Do Produto</h3>
-            </div>
-            <div class="box-best">
-                <img src="./imagens/Doce_Maria.png" width="300px">
-                <h3>Nome Do Produto</h3>
-            </div>
-            <div class="box-best">
-                <img src="./imagens/Doce_Maria.png" width="300px">
-                <h3>Nome Do Produto</h3>
-            </div>
-            <div class="box-best">
-                <img src="./imagens/Doce_Maria.png" width="300px">
-                <h3>Nome Do Produto</h3>
-            </div>
-        </div>
-    </section>
-
-    <article>
-        <h3 class="pontos">Cadastra-se, faça seus <br> pedidos e acumule <strong class="brw">pontos</strong></h3>
-        <h1 class="cfn">Como funciona?</h1>
-        <div class="box-pontos">
-            <div class="box-cfn">
-                <img src="./imagens/circulods.png" width="200px">
-                <strong class="txtpt">Acumule Doces</strong>
-                <p class="txtpts">Ganhe doces a cada compra realizada, sem pagar nenhuma taxa para
-                    participar.</p>
-            </div>
-            <div class="box-cfn">
-                <img src="./imagens/flowers.png" width="200px">
-                <strong class="txtpt">Acompanhe o Progresso</strong>
-                <p class="txtpts">Fique de olho no seu saldo e veja sua evolução rumo aos 255
-                    doces.</p>
-            </div>
-            <div class="box-cfn">
-                <img src="./imagens/sun.png" width="200px">
-                <strong class="txtpt">Desbloqueie Descontos</strong>
-                <p class="txtpts">Completou a meta? Resgate um super desconto exclusivo para o seu
-                    próximo pedido.</p>
-            </div>
-            <div class="box-cfn">
-                <img src="./imagens/stars.png" width="200px">
-                <strong class="txtpt">Peça e Ganhe Mais</strong>
-                <p class="txtpts">Quanto mais você pede, mais rápido alcança suas recompensas!</p>
-            </div>
-        </div>
-    </article>
-
-    <article>
-        <h3 class="avalia">Últimas Avaliações</h3>
-        <h1 class="textcfg">O que nossos clientes estão dizendo sobre a <strong class="cfg">gente!</strong></h1>
-
-        <div class="box-avalia">
-
-            <div class="box-cfg">
-                <div class="card-header">
-                    <img src="#" class="avatar">
-                    <div class="user-info">
-                        <strong class="txtavaliar">Mariana Souza</strong>
-                        <div class="stars">⭐⭐⭐⭐⭐</div>
-                    </div>
-                </div>
-                <p class="txtavalia">
-                    Melhor loja virtual de doces! Comprei minhas sobremesas e chocolates favoritos sem precisar sair de
-                    casa. Chegou tudo bem protegido e delicioso.
-                </p>
-                <div class="data">
-                    <span class="icon">📅</span> 10-10-2000
-                </div>
-            </div>
-
-            <div class="box-cfg">
-                <div class="card-header">
-                    <img src="./imagens/mocasaidasacada.png" class="avatar">
-                    <div class="user-info">
-                        <strong class="txtavaliar">Mariana Souza</strong>
-                        <div class="stars">⭐⭐⭐⭐⭐</div>
-                    </div>
-                </div>
-                <p class="txtavalia">
-                    Melhor loja virtual de doces! Comprei minhas sobremesas e chocolates favoritos sem precisar sair de
-                    casa. Chegou tudo bem protegido e delicioso.
-                </p>
-                <div class="data">
-                    <span class="icon">📅</span> 10-10-2000
-                </div>
-            </div>
-
-            <div class="box-cfg">
-                <div class="card-header">
-                    <img src="#" class="avatar">
-                    <div class="user-info">
-                        <strong class="txtavaliar">Mariana Souza</strong>
-                        <div class="stars">⭐⭐⭐⭐⭐</div>
-                    </div>
-                </div>
-                <p class="txtavalia">
-                    Melhor loja virtual de doces! Comprei minhas sobremesas e chocolates favoritos sem precisar sair de
-                    casa. Chegou tudo bem protegido e delicioso.
-                </p>
-                <div class="data">
-                    <span class="icon">📅</span> 10-10-2000
-                </div>
-            </div>
-
-        </div>
-    </article>
 
     <?php
     require_once "./partials/footer.php"
