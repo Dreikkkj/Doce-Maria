@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Doce Maria</title>
     <link rel="stylesheet" href="./css/bia.css">
 </head>
 
@@ -31,10 +31,12 @@
             <h1 class="title">Nossos Best-<strong class="destaque">Sellers</strong></h1>
             <div class="grid-best">
                 <div class="grid-seller">
-                    <div class="img-seller">
-                        <img src="./imagens/Doce_Maria.png" />
-                        <p class="destaque-best">Mais Vendido</p>
-                    </div>
+                    <a href="#">
+                        <div class="img-seller">
+                            <img src="./imagens/Doce_Maria.png" />
+                            <p class="destaque-best">Mais Vendido</p>
+                        </div>
+                    </a>
                     <h4 class="nomeProduto">Nome do Produto</h4>
                     <div class="avaliacoes">
                         <img src="./imagens/star.png" class="stars" />
@@ -47,10 +49,12 @@
                     <a href="#" class="btn-add">Adicionar ao Carrinho</a>
                 </div>
                 <div class="grid-seller">
-                    <div class="img-seller">
-                        <img src="./imagens/Doce_Maria.png" />
-                        <p class="destaque-best">Mais Vendido</p>
-                    </div>
+                    <a href="#">
+                        <div class="img-seller">
+                            <img src="./imagens/Doce_Maria.png" />
+                            <p class="destaque-best">Mais Vendido</p>
+                        </div>
+                    </a>
                     <h4 class="nomeProduto">Nome do Produto</h4>
                     <div class="avaliacoes">
                         <img src="./imagens/star.png" class="stars" />
@@ -63,10 +67,12 @@
                     <a href="#" class="btn-add">Adicionar ao Carrinho</a>
                 </div>
                 <div class="grid-seller">
-                    <div class="img-seller">
-                        <img src="./imagens/Doce_Maria.png" />
-                        <p class="destaque-best">Mais Vendido</p>
-                    </div>
+                    <a href="#">
+                        <div class="img-seller">
+                            <img src="./imagens/Doce_Maria.png" />
+                            <p class="destaque-best">Mais Vendido</p>
+                        </div>
+                    </a>
                     <h4 class="nomeProduto">Nome do Produto</h4>
                     <div class="avaliacoes">
                         <img src="./imagens/star.png" class="stars" />
@@ -79,10 +85,12 @@
                     <a href="#" class="btn-add">Adicionar ao Carrinho</a>
                 </div>
                 <div class="grid-seller">
-                    <div class="img-seller">
-                        <img src="./imagens/Doce_Maria.png" />
-                        <p class="destaque-best">Mais Vendido</p>
-                    </div>
+                    <a href="#">
+                        <div class="img-seller">
+                            <img src="./imagens/Doce_Maria.png" />
+                            <p class="destaque-best">Mais Vendido</p>
+                        </div>
+                    </a>
                     <h4 class="nomeProduto">Nome do Produto</h4>
                     <div class="avaliacoes">
                         <img src="./imagens/star.png" class="stars" />
@@ -127,8 +135,87 @@
                     <p class="txtpts">Quanto mais você pede, mais rápido alcança suas recompensas!</p>
                 </div>
             </div>
-            <a href="#"><button>Criar Conta e Ganhar Pontos</button></a>
+            <a href="#"><button class="btn-conta">Criar Conta e Ganhar Pontos</button></a>
         </section>
+        `
+        <article class="pink-bgd">
+            <h1 class="title-avalia">Últimas Avaliações</h1>
+            <h2 class="txt-clt">O que nossos clientes estão dizendo sobre a <strong class="pinkStrong"> gente!</strong>
+            </h2>
+            <h2 class="txt-cls">Classificação de 4.5/5 estrelas baseadas em 500+ pedidos!</h2>
+            <div class="grid-avalia">
+                <div class="box-avalia">
+                    <div class="topo-avalia">
+                        <img src="foto-perfil.jpg" alt="Foto de perfil" class="foto-perfil">
+
+                        <div class="info-usuario">
+                            <h1>Mariana Souza</h1>
+                            <div class="estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="texto-avalia">
+                        Melhor loja virtual de doces! Comprei minhas sobremesas e chocolates favoritos sem precisar sair
+                        de casa. Chegou tudo bem protegido e delicioso.
+                    </p>
+                    <div class="data-badge">
+                        <img src="./imagens/calendar.png" width="17px" alt="icon">
+                        <h4>10-10-2000</h4>
+                    </div>
+                </div><div class="box-avalia">
+                    <div class="topo-avalia">
+                        <img src="foto-perfil.jpg" alt="Foto de perfil" class="foto-perfil">
+
+                        <div class="info-usuario">
+                            <h1>Mariana Souza</h1>
+                            <div class="estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="texto-avalia">
+                        Melhor loja virtual de doces! Comprei minhas sobremesas e chocolates favoritos sem precisar sair
+                        de casa. Chegou tudo bem protegido e delicioso.
+                    </p>
+                    <div class="data-badge">
+                        <img src="./imagens/calendar.png" width="17px" alt="icon">
+                        <h4>10-10-2000</h4>
+                    </div>
+                </div><div class="box-avalia">
+                    <div class="topo-avalia">
+                        <img src="foto-perfil.jpg" alt="Foto de perfil" class="foto-perfil">
+
+                        <div class="info-usuario">
+                            <h1>Mariana Souza</h1>
+                            <div class="estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="texto-avalia">
+                        Melhor loja virtual de doces! Comprei minhas sobremesas e chocolates favoritos sem precisar sair
+                        de casa. Chegou tudo bem protegido e delicioso.
+                    </p>
+                    <div class="data-badge">
+                        <img src="./imagens/calendar.png" width="17px" alt="icon">
+                        <h4>10-10-2000</h4>
+                    </div>
+                </div>
+            </div>
+        </article>
 
     </main>
 

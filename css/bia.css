@@ -68,6 +68,7 @@ main {
     border-radius: 36px;
     text-align: center;
     font-family: "Sora", sans-serif;
+    cursor: pointer;
 }
 
 .btncad {
@@ -87,6 +88,7 @@ main {
     border-radius: 36px;
     border-color: #623a25;
     background-color: #eaa4b1;
+    cursor: pointer;
 }
 
 .logo_menu {
@@ -143,6 +145,7 @@ main {
 
 .btn-foto:hover {
     background-color: #62382296;
+    cursor: pointer;
 }
 
 .bck-pink {
@@ -187,7 +190,7 @@ main {
 .meu-rodape {
     background-color: #eaa4b1;
     padding: 60px 40px 20px 40px;
-    margin-top: 700px;
+    margin-top: 170px;
     font-family: "Sora", sans-serif;
     color: white;
 }
@@ -239,6 +242,7 @@ main {
 
 .btn-assine:hover {
     background-color: #ce9f7b;
+    cursor: pointer;
 }
 
 .texto-final {
@@ -255,7 +259,7 @@ main {
     max-width: 1200px;
     margin-left: auto;
     margin-top: 50px;
-    margin-bottom: 150px;
+    margin-bottom: 20px;
     margin-right: auto;
 }
 
@@ -287,7 +291,7 @@ main {
     margin-top: 54px;
 }
 
-.destaque{
+.destaque {
     background-color: #ce9f7b;
     padding: 10px 5px;
     border-radius: 36px;
@@ -323,6 +327,7 @@ main {
     justify-content: center;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .img-box img {
@@ -386,15 +391,16 @@ main {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.titlepts{
+.titlepts {
     font-size: 50px;
     margin-left: 650px;
     margin-top: 54px;
 }
 
-.cfn{
+.cfn {
     margin-top: 100px;
     margin-left: 200px
 }
@@ -433,4 +439,143 @@ main {
     font-weight: bold;
     text-align: center;
     font-size: 20px;
+}
+
+.btn-conta {
+    background-color: #623822;
+    padding: 10px 55px;
+    border-radius: 66px;
+    font-family: "Sora", sans-serif;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-style: none;
+    margin-top: 500px;
+    margin-left: 720px;
+}
+
+.btn-conta:hover {
+    background-color: #c7aa9a;
+    cursor: pointer;
+}
+
+.pink-bgd {
+    margin-top: 135px;
+    background-color: #eaa4b1;
+    padding: 50px 10px;
+}
+
+.title-avalia {
+    font-size: 65px;
+    font-weight: bold;
+    margin-left: 670px;
+}
+
+.txt-clt {
+    font-size: 30px;
+    margin-left: 625px;
+    font-weight: 200;
+}
+
+.txt-cls {
+    font-size: 30px;
+    margin-left: 560px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.pinkStrong {
+    background-color: #cb7e87;
+    border-radius: 33px;
+    padding: 4px 5px;
+}
+
+.grid-avalia {
+    width: 1800px;
+    height: 400px;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.box-avalia {
+    background-color: #cb7a82;
+    width: 440px;
+    height: 330px;
+    padding: 24px;
+    border-radius: 18px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.topo-avalia {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.foto-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info-usuario {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.info-usuario h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.estrelas {
+    display: flex;         
+    align-items: center;
+    gap: 4px;
+}
+
+.estrelas img {
+    width: 36px;           
+    height: auto;
+    display: block;
+}
+
+.texto-avalia {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.35;
+    color: #111111;
+    text-align: left;
+    max-height: max-content;
+    max-height: 120px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.data-badge {
+    background-color: #e2ebf3;
+    padding: 6px 14px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.data-badge h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #4a5d6e;
 }

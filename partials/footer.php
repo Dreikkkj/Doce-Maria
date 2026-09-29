@@ -7,7 +7,7 @@
                 <h3>Receba nossa newletter</h3>
 
                 <form class="form-assinatura">
-                    <input type="email" class="barra-email" placeholder="Seu melhor e-mail"> <!-- arrumar placeholder -->
+                    <input type="email" class="barra-email" placeholder="Seu melhor e-mail">
                     <button type="submit" class="btn-assine">Assine</button>
                 </form>
 
