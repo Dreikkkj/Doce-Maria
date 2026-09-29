@@ -1,12 +1,50 @@
+<?php
+require_once './CRUD/crud.php';
+
+date_default_timezone_set('America/Sao_Paulo');
+
+$sqlBestSellers = "
+    SELECT 
+        p.id,
+        p.nome,
+        p.preco,
+        p.imagem,
+        SUM(ip.quantidade) AS total_vendido,
+        COALESCE(AVG(a.nota), 0) AS media_nota,
+        COUNT(a.id) AS total_avaliacoes
+    FROM produto p
+    INNER JOIN itens_pedido ip ON p.id = ip.produto_id
+    INNER JOIN pedidos ped ON ped.id = ip.pedido_id
+    LEFT JOIN avaliacoes a ON a.produto_id = p.id
+    WHERE ped.status = 'pago'
+    GROUP BY p.id, p.nome, p.preco, p.imagem
+    ORDER BY total_vendido DESC
+    LIMIT 4
+";
+
+$stmt = $pdo->prepare($sqlBestSellers);
+$stmt->execute();
+$produtosBestSellers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$totalAvaliacoes = readALL($pdo, 'avaliacoes');
+
+if (!empty($totalAvaliacoes)) {
+    $mediaGeralNota = array_sum(array_column($totalAvaliacoes, 'nota')) / count($totalAvaliacoes);
+} else {
+    $mediaGeralNota = 0;
+}
+$mediaGeralArredondada = round($mediaGeralNota, 1);
+
+$avaliacao = readAll($pdo, 'avaliacoes', '1 ORDER BY id DESC LIMIT 3');
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Belleza&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,12 +53,11 @@
 </head>
 
 <body>
-    <?php
-    require_once "./partials/header.php"
-        ?>
+    <?php require_once "./partials/header.php"; ?>
+
     <main>
         <div class="container-foto">
-            <img src="./imagens/homeft.png" class="fthome">
+            <img src="./imagens/homeft.png" class="fthome" alt="Home">
             <h1 class="texto-foto">Felicidade em cada pedaço</h1>
             <a href="#"><button type="button" class="btn-foto">Descubra sua Felicidade</button></a>
         </div>
@@ -30,199 +67,112 @@
             <br>
             <h1 class="title">Nossos Best-<strong class="destaque">Sellers</strong></h1>
             <div class="grid-best">
-                <div class="grid-seller">
-                    <a href="#">
-                        <div class="img-seller">
-                            <img src="./imagens/Doce_Maria.png" />
-                            <p class="destaque-best">Mais Vendido</p>
+
+                <?php if (empty($produtosBestSellers)): ?>
+                    <p>Nenhum produto mais vendido encontrado.</p>
+                <?php else: ?>
+                    <?php foreach ($produtosBestSellers as $item): ?>
+                        <?php $notaIndividual = round($item['media_nota']); ?>
+                        
+                        <div class="grid-seller">
+                            <a href="./detalhe.php?id=<?= $item['id'] ?>">
+                                <div class="img-seller">
+                                    <img src="./imagens/<?= htmlspecialchars($item['imagem']) ?>" alt="<?= htmlspecialchars($item['nome']) ?>" />
+                                    <p class="destaque-best">Mais Vendido</p>
+                                </div>
+                            </a>
+                            <h4 class="nomeProduto"><?= htmlspecialchars($item['nome']) ?></h4>
+
+                            <div class="avaliacoes">
+                                <?php if ($notaIndividual == 0): ?>
+                                    <p>Nenhuma Avaliação Disponível</p>
+                                <?php else: ?>
+                                    <?php for ($i = 1; $i <= $notaIndividual; $i++): ?>
+                                        <img src="./imagens/star.png" class="stars" alt="Estrela" />
+                                    <?php endfor; ?>
+                                <?php endif; ?>
+                            </div>
+
+                            <p class="price">R$ <?= number_format($item['preco'], 2, ',', '.') ?></p>
+                            <a href="#" class="btn-add">Adicionar ao Carrinho</a>
                         </div>
-                    </a>
-                    <h4 class="nomeProduto">Nome do Produto</h4>
-                    <div class="avaliacoes">
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                    </div>
-                    <p class="price">R$20,00</p>
-                    <a href="#" class="btn-add">Adicionar ao Carrinho</a>
-                </div>
-                <div class="grid-seller">
-                    <a href="#">
-                        <div class="img-seller">
-                            <img src="./imagens/Doce_Maria.png" />
-                            <p class="destaque-best">Mais Vendido</p>
-                        </div>
-                    </a>
-                    <h4 class="nomeProduto">Nome do Produto</h4>
-                    <div class="avaliacoes">
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                    </div>
-                    <p class="price">R$20,00</p>
-                    <a href="#" class="btn-add">Adicionar ao Carrinho</a>
-                </div>
-                <div class="grid-seller">
-                    <a href="#">
-                        <div class="img-seller">
-                            <img src="./imagens/Doce_Maria.png" />
-                            <p class="destaque-best">Mais Vendido</p>
-                        </div>
-                    </a>
-                    <h4 class="nomeProduto">Nome do Produto</h4>
-                    <div class="avaliacoes">
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                    </div>
-                    <p class="price">R$20,00</p>
-                    <a href="#" class="btn-add">Adicionar ao Carrinho</a>
-                </div>
-                <div class="grid-seller">
-                    <a href="#">
-                        <div class="img-seller">
-                            <img src="./imagens/Doce_Maria.png" />
-                            <p class="destaque-best">Mais Vendido</p>
-                        </div>
-                    </a>
-                    <h4 class="nomeProduto">Nome do Produto</h4>
-                    <div class="avaliacoes">
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                        <img src="./imagens/star.png" class="stars" />
-                    </div>
-                    <p class="price">R$20,00</p>
-                    <a href="#" class="btn-add">Adicionar ao Carrinho</a>
-                </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
             </div>
         </section>
 
         <section>
             <br>
-            <h1 class="titlepts">Cadastre-se, faça seus<br> pedidos e acumule<strong class="destaque">pontos</strong>
-            </h1>
+            <h1 class="titlepts">Cadastre-se, faça seus<br> pedidos e acumule<strong class="destaque">pontos</strong></h1>
             <h1 class="cfn">Como funciona?</h1>
             <div class="grid-pts">
                 <div class="box-cfn">
-                    <img src="./imagens/acumule.png" width="230px">
+                    <img src="./imagens/acumule.png" width="230px" alt="Acumule Doces">
                     <strong class="txtpt">Acumule Doces</strong>
-                    <p class="txtpts">Ganhe doces a cada compra realizada, sem pagar nenhuma taxa para
-                        participar.</p>
+                    <p class="txtpts">Ganhe doces a cada compra realizada, sem pagar nenhuma taxa para participar.</p>
                 </div>
                 <div class="box-cfn">
-                    <img src="./imagens/progresso.png" width="230px">
+                    <img src="./imagens/progresso.png" width="230px" alt="Progresso">
                     <strong class="txtpt">Acompanhe o Progresso</strong>
-                    <p class="txtpts">Fique de olho no seu saldo e veja sua evolução rumo aos 255
-                        doces.</p>
+                    <p class="txtpts">Fique de olho no seu saldo e veja sua evolução rumo aos 255 doces.</p>
                 </div>
                 <div class="box-cfn">
-                    <img src="./imagens/descontos.png" width="230px">
+                    <img src="./imagens/descontos.png" width="230px" alt="Descontos">
                     <strong class="txtpt">Desbloqueie Descontos</strong>
-                    <p class="txtpts">Completou a meta? Resgate um super desconto exclusivo para o seu
-                        próximo pedido.</p>
+                    <p class="txtpts">Completou a meta? Resgate um super desconto exclusivo para o seu próximo pedido.</p>
                 </div>
                 <div class="box-cfn">
-                    <img src="./imagens/pecaMais.png" width="230px">
+                    <img src="./imagens/pecaMais.png" width="230px" alt="Peça Mais">
                     <strong class="txtpt">Peça e Ganhe Mais</strong>
                     <p class="txtpts">Quanto mais você pede, mais rápido alcança suas recompensas!</p>
                 </div>
             </div>
-            <a href="#"><button class="btn-conta">Criar Conta e Ganhar Pontos</button></a>
+            <a href="cadastro.php"><button class="btn-conta">Criar Conta e Ganhar Pontos</button></a>
         </section>
-        `
+
         <article class="pink-bgd">
             <h1 class="title-avalia">Últimas Avaliações</h1>
-            <h2 class="txt-clt">O que nossos clientes estão dizendo sobre a <strong class="pinkStrong"> gente!</strong>
-            </h2>
-            <h2 class="txt-cls">Classificação de 4.5/5 estrelas baseadas em 500+ pedidos!</h2>
+            <h2 class="txt-clt">O que nossos clientes estão dizendo sobre a <strong class="pinkStrong">gente!</strong></h2>
+            <h2 class="txt-cls">Classificação de <?= $mediaGeralArredondada ?>/5 estrelas baseadas em avaliações de clientes!</h2>
+            
             <div class="grid-avalia">
-                <div class="box-avalia">
-                    <div class="topo-avalia">
-                        <img src="foto-perfil.jpg" alt="Foto de perfil" class="foto-perfil">
-
-                        <div class="info-usuario">
-                            <h1>Mariana Souza</h1>
-                            <div class="estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
+                <?php if (empty($avaliacao)): ?>
+                    <p>Nenhuma avaliação disponível.</p>
+                <?php else: ?>
+                    <?php foreach ($avaliacao as $avaliacoes): ?>
+                        <?php 
+                            $dataHora = new DateTime($avaliacoes['data_avaliacao']);
+                            $notaComentario = isset($avaliacoes['nota']) ? round($avaliacoes['nota']) : (int)$mediaGeralArredondada;
+                        ?>
+                        <div class="box-avalia">
+                            <div class="topo-avalia">
+                                <img src="./imagens/<?= htmlspecialchars($avaliacoes['imagem']) ?>" alt="Foto de perfil" class="foto-perfil">
+                                <div class="info-usuario">
+                                    <h1><?= htmlspecialchars($avaliacoes['nome']) ?></h1>
+                                    <div class="estrelas">
+                                        <?php if ($notaComentario == 0): ?>
+                                            ☆
+                                        <?php else: ?>
+                                            <?php for ($i = 1; $i <= $notaComentario; $i++): ?>
+                                                <img src="./imagens/estrela.png" alt="Estrela" />
+                                            <?php endfor; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="texto-avalia"><?= htmlspecialchars($avaliacoes['comentario']) ?></p>
+                            <div class="data-badge">
+                                <img src="./imagens/calendar.png" width="17px" alt="Calendário">
+                                <h4><?= $dataHora->format('d-m-Y') ?></h4>
                             </div>
                         </div>
-                    </div>
-                    <p class="texto-avalia">
-                        Melhor loja virtual de doces! Comprei minhas sobremesas e chocolates favoritos sem precisar sair
-                        de casa. Chegou tudo bem protegido e delicioso.
-                    </p>
-                    <div class="data-badge">
-                        <img src="./imagens/calendar.png" width="17px" alt="icon">
-                        <h4>10-10-2000</h4>
-                    </div>
-                </div><div class="box-avalia">
-                    <div class="topo-avalia">
-                        <img src="foto-perfil.jpg" alt="Foto de perfil" class="foto-perfil">
-
-                        <div class="info-usuario">
-                            <h1>Mariana Souza</h1>
-                            <div class="estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                            </div>
-                        </div>
-                    </div>
-                    <p class="texto-avalia">
-                        Melhor loja virtual de doces! Comprei minhas sobremesas e chocolates favoritos sem precisar sair
-                        de casa. Chegou tudo bem protegido e delicioso.
-                    </p>
-                    <div class="data-badge">
-                        <img src="./imagens/calendar.png" width="17px" alt="icon">
-                        <h4>10-10-2000</h4>
-                    </div>
-                </div><div class="box-avalia">
-                    <div class="topo-avalia">
-                        <img src="foto-perfil.jpg" alt="Foto de perfil" class="foto-perfil">
-
-                        <div class="info-usuario">
-                            <h1>Mariana Souza</h1>
-                            <div class="estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                                <img src="./imagens/estrela.png" alt="Classificação 5 estrelas">
-                            </div>
-                        </div>
-                    </div>
-                    <p class="texto-avalia">
-                        Melhor loja virtual de doces! Comprei minhas sobremesas e chocolates favoritos sem precisar sair
-                        de casa. Chegou tudo bem protegido e delicioso.
-                    </p>
-                    <div class="data-badge">
-                        <img src="./imagens/calendar.png" width="17px" alt="icon">
-                        <h4>10-10-2000</h4>
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </article>
-
     </main>
 
-    <?php
-    require_once "./partials/footer.php"
-        ?>
-
+    <?php require_once "./partials/footer.php"; ?>
 </body>
-
 </html>
