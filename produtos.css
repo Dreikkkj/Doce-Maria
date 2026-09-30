@@ -1,31 +1,62 @@
-body{
-    background-color: #fae8e8;
+body {
+    background-color: #fdeef9; 
+    font-family: sans-serif;
 }
-.card-donuts{
-    background-color: #f1f7fd;
-    border-collapse: collapse;
-    width: 280px;
-    height: 320px;
-    margin: 40px auto;
-    text-align: center;
 
-    margin-top: 240px;
+.layout-conteudo {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
 
-    font-family: "Oxanium", sans-serif;
-    color:  #f1aaa9;
-    font-size: 20px;
-
+.sidebar-categorias {
+    background: #eed8e9;
+    padding: 15px;
     border-radius: 10px;
-    overflow: hidden;
-    
+    width: 180px;
 }
 
-.donuts{
-    width: 280px;
-    height:160px;
+.sidebar-categorias ul {
+    list-style: none;
+    padding: 0;
 }
 
-.donuts2{
-     width: 370px;
-    height:220px;
+.grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas de cartões */
+    gap: 15px;
+    flex-grow: 1;
+}
+
+.card-produtos{
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.img-produto {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.acoes-card {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.btn-compre {
+    background-color: #f3b6da;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+p{
+    color:pink
 }
