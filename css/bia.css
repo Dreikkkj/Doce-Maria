@@ -541,13 +541,13 @@ main {
 }
 
 .estrelas {
-    display: flex;         
+    display: flex;
     align-items: center;
     gap: 4px;
 }
 
 .estrelas img {
-    width: 36px;           
+    width: 36px;
     height: auto;
     display: block;
 }
@@ -578,4 +578,61 @@ main {
     font-size: 16px;
     font-weight: 600;
     color: #4a5d6e;
+}
+
+
+/* Sobre */
+
+.texto-sobre {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    font-family: "Qwitcher Grypen", cursive;
+    font-weight: 700;
+    font-size: 130px;
+    font-style: normal;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+}
+
+.ftsobre {
+    width: 100%;
+}
+
+.litleTitle {
+    color: #9b5833;
+    margin-left: 70px;
+    margin-top: 50px;
+    font-size: 25px;
+}
+
+.titleSobre {
+    margin-left: 70px;
+    font-size: 40px;
+}
+
+.subTitle {
+    color: #da627d;
+    font-family: "Carattere", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 50px;
+}
+
+.pink-sbr {
+    background-color: #eed8dc;
+    border-radius: 36px;
+    margin-left: 70px;
+    margin-right: 70px;
+    display: grid;
+    grid-template-columns: 200px 2fr;
+
+}
+
+.aspas{
+    width: 50px;
+    margin-left: 50px;
+    margin-top: 7px;
 }
