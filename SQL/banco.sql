@@ -95,7 +95,7 @@ VALUES
 INSERT INTO produtos 
 (img_produto, nome_produto, descricao, categoria, peso_tamanho, preco, estoque, status_estoque, estrelas)
 VALUES 
-('donut_doce_maria.png', 'Donut Especial Doce Maria', 'O carro-chefe da loja! Donut macio com cobertura rosa de morango e calda de chocolate escorrendo.', 'Donuts', 'Unidade (90g)', 12.90, 45, 'Em estoque', 5),
+('./uploads/donut_doce_maria.jpg', 'Donut Especial Doce Maria', 'O carro-chefe da loja! Donut macio com cobertura rosa de morango e calda de chocolate escorrendo.', 'Donuts', 'Unidade (90g)', 12.90, 45, 'Em estoque', 5),
 ('donut_boston_cream.png', 'Donut Boston Cream', 'Massa fofinha recheada com creme de baunilha e cobertura de ganache de chocolate.', 'Donuts', 'Unidade (100g)', 13.90, 8, 'Estoque baixo', 5),
 ('donut_glaceado.png', 'Donut Glaceado Tradicional', 'O clássico americano com casquinha crocante de açúcar derretido.', 'Donuts', 'Unidade (75g)', 9.90, 0, 'Esgotado', 4),
 ('brigadeiro_gourmet.png', 'Brigadeiro Gourmet ao Leite', 'Brigadeiro feito com chocolate nobre belga e confeitos crocantes.', 'Brigadeiro', 'Unidade (25g)', 4.50, 60, 'Em estoque', 5),

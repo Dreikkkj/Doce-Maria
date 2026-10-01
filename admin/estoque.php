@@ -52,14 +52,8 @@ if (!empty($produtos)) {
 
 <body>
     <header class="topbar-maria">
-        <div class="user-profile">
-            <div class="user-avatar">M</div>
-            <div class="user-info">
-                <span class="user-name">Maria</span>
-                <span class="user-role">Administradora</span>
-            </div>
-            <span class="material-symbols-outlined">expand_more</span>
-        </div>
+
+
     </header>
 
     <main class="admin-container">
@@ -134,48 +128,48 @@ if (!empty($produtos)) {
                 </thead>
                 <tbody>
                     <?php if (!empty($produtos)): ?>
-                    <?php foreach ($produtos as $prod): ?>
-                    <tr>
-                        <td>
-                            <div class="produto-info">
-                                <img src="../img/produtos/<?php echo htmlspecialchars($prod['img_produto'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="produto-img">
-                                <div class="produto-textos">
-                                    <span class="produto-nome"><?php echo htmlspecialchars($prod['nome_produto'], ENT_QUOTES, 'UTF-8'); ?></span>
-                                    <span class="produto-desc"><?php echo htmlspecialchars($prod['peso_tamanho'] ?? '', ENT_QUOTES, 'UTF-8'); ?></span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="badge badge-categoria"><?php echo htmlspecialchars($prod['categoria'], ENT_QUOTES, 'UTF-8'); ?></span>
-                        </td>
-                        <td>
-                            <strong><?php echo htmlspecialchars((string) $prod['estoque'], ENT_QUOTES, 'UTF-8'); ?></strong>
-                        </td>
-                        <td>
-                            <?php
-                                        $statusClass = 'badge-success';
-                                        if ($prod['status_estoque'] === 'Estoque baixo') {
-                                            $statusClass = 'badge-warning';
-                                        } elseif ($prod['status_estoque'] === 'Esgotado') {
-                                            $statusClass = 'badge-danger';
-                                        }
+                        <?php foreach ($produtos as $prod): ?>
+                            <tr>
+                                <td>
+                                    <div class="produto-info">
+                                        <img src="../uploads/<?php echo htmlspecialchars($prod['img_produto'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="produto-img">
+                                        <div class="produto-textos">
+                                            <span class="produto-nome"><?php echo htmlspecialchars($prod['nome_produto'], ENT_QUOTES, 'UTF-8'); ?></span>
+                                            <span class="produto-desc"><?php echo htmlspecialchars($prod['peso_tamanho'] ?? '', ENT_QUOTES, 'UTF-8'); ?></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge badge-categoria"><?php echo htmlspecialchars($prod['categoria'], ENT_QUOTES, 'UTF-8'); ?></span>
+                                </td>
+                                <td>
+                                    <strong><?php echo htmlspecialchars((string) $prod['estoque'], ENT_QUOTES, 'UTF-8'); ?></strong>
+                                </td>
+                                <td>
+                                    <?php
+                                    $statusClass = 'badge-success';
+                                    if ($prod['status_estoque'] === 'Estoque baixo') {
+                                        $statusClass = 'badge-warning';
+                                    } elseif ($prod['status_estoque'] === 'Esgotado') {
+                                        $statusClass = 'badge-danger';
+                                    }
                                     ?>
                                     <span class="badge <?php echo $statusClass; ?>"><?php echo htmlspecialchars($prod['status_estoque'], ENT_QUOTES, 'UTF-8'); ?></span>
-                        </td>
-                        <td>
-                            <div class="acoes-flex">
-                                <a href="editar_produto.php?id=<?php echo (int) $prod['id_produto']; ?>" class="btn-icon"><span class="material-symbols-outlined">edit</span></a>
-                                <a href="excluir_produto.php?id=<?php echo (int) $prod['id_produto']; ?>" class="btn-icon"><span class="material-symbols-outlined">delete</span></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                                </td>
+                                <td>
+                                    <div class="acoes-flex">
+                                        <a href="editar_produto.php?id=<?php echo (int) $prod['id_produto']; ?>" class="btn-icon"><span class="material-symbols-outlined">edit</span></a>
+                                        <a href="excluir_produto.php?id=<?php echo (int) $prod['id_produto']; ?>" class="btn-icon"><span class="material-symbols-outlined">delete</span></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     <?php else: ?>
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: #9C858D; padding: 20px;">
-                            Nenhum produto cadastrado.
-                        </td>
-                    </tr>
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: #9C858D; padding: 20px;">
+                                Nenhum produto cadastrado.
+                            </td>
+                        </tr>
                     <?php endif; ?>
                 </tbody>
             </table>

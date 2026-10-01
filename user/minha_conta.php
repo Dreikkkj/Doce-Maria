@@ -2,13 +2,13 @@
 session_start();
 require_once __DIR__ . '/../php/crud.php';
 
-// Verifica se o usuário está autenticado
+
 if (!isset($_SESSION['autenticado'])) {
     header("Location: ../login.php");
     exit();
 }
 
-// Busca os dados da conta autenticada na tabela usuarios.
+
 $usuario = read(
     $pdo,
     'usuarios',
@@ -22,7 +22,7 @@ if (!$usuario) {
     exit();
 }
 
-// Meta de pontos do próximo nível do programa
+
 $meta_proximo_nivel = 3000;
 $pontos_atuais = $usuario['pontos_fidelidade'];
 $pontos_restantes = max(0, $meta_proximo_nivel - $pontos_atuais);
@@ -57,7 +57,7 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
             padding-bottom: 60px;
         }
 
-        /* Topbar / Cabeçalho Superior */
+
         .topbar-cliente {
             display: flex;
             justify-content: flex-end;
@@ -274,7 +274,7 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
 
         .progress-bar-fill {
             height: 100%;
-            width: 78%; 
+            width: 78%;
             background-color: #F07FA6;
             border-radius: 10px;
         }
@@ -367,7 +367,7 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
 
 <body>
 
-    <!-- Menu Superior -->
+
     <header class="topbar-cliente">
         <div class="user-nav">
             <button class="notification-btn" title="Notificações">
@@ -387,14 +387,14 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
     </header>
 
     <main class="account-container">
-        
-        <!-- Cabeçalho -->
+
+
         <div class="page-header">
             <h1>Minha conta</h1>
             <p>Gerencie suas informações e acompanhe seus pedidos. <i class="fa-solid fa-heart heart-icon"></i></p>
         </div>
 
-        <!-- Card do Usuário -->
+
         <section class="card-box profile-card">
             <div class="profile-info-left">
                 <div class="avatar-lg">
@@ -406,18 +406,18 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
                     <p><?php echo htmlspecialchars($usuario['telefone'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
                 </div>
             </div>
-            
+
             <a href="editar_perfil.php" class="btn-edit-profile">
                 <i class="fa-solid fa-pencil" style="font-size: 12px;"></i> Editar perfil
             </a>
         </section>
 
-        <!-- Seção Acesso Rápido -->
+
         <section>
             <h2 class="section-title">Acesso rápido</h2>
-            
+
             <div class="quick-access-grid">
-                <!-- Botão 1: Meus Pedidos -->
+
                 <a href="meus_pedidos.php" class="quick-access-item">
                     <div class="item-left">
                         <div class="item-icon">
@@ -428,7 +428,7 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
                     <span class="material-symbols-outlined item-arrow">chevron_right</span>
                 </a>
 
-                <!-- Botão 2: Fidelidade -->
+
                 <a href="fidelidade.php" class="quick-access-item">
                     <div class="item-left">
                         <div class="item-icon">
@@ -444,4 +444,5 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
     </main>
 
 </body>
+
 </html>

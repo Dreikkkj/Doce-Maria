@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . '/../php/crud.php';
 
-// Verifica se o usuário está autenticado
+
 if (!isset($_SESSION['autenticado'])) {
     header("Location: ../login.php");
     exit();

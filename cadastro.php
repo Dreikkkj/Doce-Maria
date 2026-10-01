@@ -1,3 +1,74 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once 'crud.php'; 
+$mensagem = "";
+$tipo_mensagem = "";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+ 
+    $nome     = trim($_POST['nome'] ?? '');
+    $email    = trim($_POST['email'] ?? '');
+    $senha    = trim($_POST['senha'] ?? '');
+    $telefone = trim($_POST['telefone'] ?? '');
+    $tipo_usuario = 'cliente'; 
+
+
+    if (empty($nome) || empty($email) || empty($senha)) {
+        $mensagem = "Por favor, preencha todos os campos obrigatórios.";
+        $tipo_mensagem = "erro";
+    } else {
+      
+        $query = "SELECT id_user FROM usuarios WHERE email = :email";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $mensagem = "Este e-mail já está cadastrado. Tente outro.";
+            $tipo_mensagem = "erro";
+        } else {
+           
+            $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+
+           
+            $dados = [
+                'nome'          => $nome,
+                'email'         => $email,
+                'senha'         => $senha_hash,
+                'telefone'      => $telefone,
+                'tipo_usuario'  => $tipo_usuario,
+                'pontos_fidelidade' => 0, 
+                'data_cadastro' => date('Y-m-d')
+            ];
+
+        
+            $sucesso = create($pdo, 'usuarios', $dados);
+
+            if ($sucesso) {
+                $_SESSION['mensagem'] = "Cadastro realizado com sucesso! Faça login para continuar.";
+                $_SESSION['tipo_mensagem'] = "sucesso";
+                header("Location: login.php");
+                exit();
+            } else {
+                $mensagem = "Erro ao cadastrar. Tente novamente mais tarde.";
+                $tipo_mensagem = "erro";
+            }
+        }
+    }
+}
+
+
+if (!empty($mensagem)) {
+    $_SESSION['mensagem'] = $mensagem;
+    $_SESSION['tipo_mensagem'] = $tipo_mensagem;
+    header("Location: cadastro.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 

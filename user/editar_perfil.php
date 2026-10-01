@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding-bottom: 60px;
         }
 
-        /* Topbar / Cabeçalho Superior */
+        
         .topbar-cliente {
             display: flex;
             justify-content: flex-end;
@@ -155,14 +155,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #333;
         }
 
-        /* Container Principal */
+  
         .account-container {
             max-width: 750px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* Título da Página com Botão Voltar */
+      
         .page-header {
             display: flex;
             justify-content: space-between;
@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #F07FA6;
         }
 
-        /* Formulário */
+
         .card-box {
             background: #FFFFFF;
             border-radius: 16px;
@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: #888;
         }
 
-        /* Ações do Formulário (Botões) */
+        
         .form-actions {
             display: flex;
             gap: 15px;
@@ -286,7 +286,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: #EAEAEA;
         }
 
-        /* Alertas visuais (para os testes futuros do PHP) */
+    
         .alert {
             padding: 15px;
             border-radius: 8px;
@@ -304,7 +304,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-    <!-- Menu Superior -->
     <header class="topbar-cliente">
         <div class="user-nav">
             <button class="notification-btn" title="Notificações">
@@ -325,7 +324,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <main class="account-container">
         
-        <!-- Cabeçalho com o botão Voltar -->
+  
         <div class="page-header">
             <div class="header-text">
                 <h1>Editar Perfil</h1>
