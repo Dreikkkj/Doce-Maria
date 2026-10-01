@@ -9,16 +9,12 @@ $sqlprodutos = "
         p.nome,
         p.preco,
         p.imagem,
-        SUM(ip.quantidade) AS total_vendido,
         COALESCE(AVG(a.nota), 0) AS media_nota,
         COUNT(a.id) AS total_avaliacoes
     FROM produto p
-    INNER JOIN itens_pedido ip ON p.id = ip.produto_id
-    INNER JOIN pedidos ped ON ped.id = ip.pedido_id
     LEFT JOIN avaliacoes a ON a.produto_id = p.id
-    WHERE ped.status = 'pago'
     GROUP BY p.id, p.nome, p.preco, p.imagem
-    ORDER BY total_vendido DESC
+    ORDER BY p.id DESC
     LIMIT 4
 ";
 
