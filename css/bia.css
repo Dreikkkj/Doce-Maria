@@ -97,3 +97,12 @@ main {
 .fthome{
     width: 100%;
 }
+
+.abrirModal {
+    display: block;
+    color: #ffffff00;
+    padding: 13px 27px;
+    text-decoration: none;
+    text-align: center;
+    font-family: "Sora", sans-serif;
+}

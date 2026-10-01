@@ -11,9 +11,9 @@ function database(): PDO
 
     $host = getenv('DB_HOST') ?: '127.0.0.1';
     $name = getenv('DB_NAME') ?: 'db_docemaria';
-    $username = getenv('DB_USER') ?: 'dev';
-    $password = getenv('DB_PASSWORD') ?: '123';
-    $password = $password === false ? '' : $password;
+    $username = getenv('DB_USER') ?: '';
+    $password = getenv('DB_PASSWORD') ?: '';
+   
 
     $connection = new PDO(
         "mysql:host={$host};dbname={$name};charset=utf8mb4",

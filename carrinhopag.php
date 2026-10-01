@@ -159,13 +159,367 @@ function format_brl(int $cents): string
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./andreicss/carrinhopag.css">
     <link rel="stylesheet" href="./css/bia.css">
+
+    <style>
+
+        #botaoTop {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e91e63;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            padding: 0;
+        }
+
+        #botaoTop:hover {
+            transform: scale(1.08);
+            background-color: #d81b60;
+        }
+
+        #botaoTop img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 9999;
+            padding: 15px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-modal {
+            background: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            color: #333;
+        }
+
+        .modal-overlay.active .cart-modal {
+            transform: translateY(0);
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .close-modal-btn:hover {
+            color: #333;
+        }
+
+        .cart-title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .cart-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .cart-item-block {
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 16px;
+        }
+
+        .cart-item-block:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .item-img-container {
+            width: 65px;
+            height: 65px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f9f9f9;
+            flex-shrink: 0;
+        }
+
+        .item-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .item-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #222;
+            margin: 0;
+        }
+
+        .item-price-small {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .item-description {
+            font-size: 12px;
+            color: #888;
+            margin: 0;
+        }
+
+        .quantity-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f7;
+            border-radius: 20px;
+            padding: 4px 8px;
+            gap: 10px;
+        }
+
+        .btn-qty {
+            background: none;
+            border: none;
+            color: #555;
+            cursor: pointer;
+            font-size: 13px;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .btn-qty:hover {
+            background: #e0e0e0;
+        }
+
+        .qty-number {
+            font-size: 14px;
+            font-weight: 600;
+            min-width: 16px;
+            text-align: center;
+        }
+
+        .item-price-total {
+            font-weight: 700;
+            font-size: 15px;
+            color: #e91e63;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 18px 0;
+            position: relative;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .divider-icon {
+            margin: 0 10px;
+            color: #ffb74d;
+            font-size: 12px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 12px;
+        }
+
+        .cross-sell-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .cross-sell-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .cross-sell-img-wrapper {
+            position: relative;
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            background: #f8f8f8;
+            margin-bottom: 6px;
+        }
+
+        .cross-sell-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .add-btn {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .cross-sell-title {
+            font-size: 11px;
+            color: #333;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 60px;
+        }
+
+        .cross-sell-price {
+            font-size: 11px;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .subtotal-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #222;
+        }
+
+        .loyalty-banner {
+            background: #fff8e1;
+            color: #f57f17;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkout-btn:hover {
+            background: #1b5e20;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            color: #888;
+            padding: 15px 0;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
 <?php
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'header.php';
-
 ?>
     <form method="post" id="checkout-form">
     <input type="hidden" name="csrf_token" value="<?= escape_html($_SESSION['csrf_token']) ?>">
@@ -334,11 +688,130 @@ function format_brl(int $cents): string
 
         </aside>
 
+        <button id="botaoTop" type="button" title="Abrir Carrinho"><img src="./imagens/carticon.png" alt="Carrinho"></button>
+
     </main>
     </form>
 
+   
+    <div class="modal-overlay" id="modal-carrinho-overlay">
+        <div class="cart-modal">
+            <button class="close-modal-btn" id="close-cart-modal" type="button">&times;</button>
+
+            <h2 class="cart-title">Meu carrinho</h2>
+
+            <div class="cart-items-list" id="modal-cart-items">
+                <?php if ($cartItems === []): ?>
+                    <p class="empty-cart-msg">Seu carrinho está vazio.</p>
+                <?php else: ?>
+                    <?php foreach ($cartItems as $productId => $quantity): ?>
+                        <?php if (!isset($products[$productId])) continue; ?>
+                        <?php $product = $products[$productId]; ?>
+                        <?php $unitPrice = (float) $product['preco']; ?>
+                        <?php $lineCents = (int) round($unitPrice * 100) * $quantity; ?>
+                        
+                        <div class="cart-item-block" data-product-id="<?= $productId ?>" data-price="<?= $unitPrice ?>">
+                            <div class="cart-item">
+                                <div class="item-img-container">
+                                    <?php if (!empty($product['img_produto'])): ?>
+                                        <img src="./imagens/<?= escape_html(basename((string) $product['img_produto'])) ?>" alt="<?= escape_html($product['nome_produto']) ?>" class="item-img">
+                                    <?php else: ?>
+                                        <img src="https://via.placeholder.com/100" alt="Produto" class="item-img">
+                                    <?php endif; ?>
+                                </div>
+                                <div class="item-details">
+                                    <div class="item-header">
+                                        <h3 class="item-title"><?= escape_html($product['nome_produto']) ?></h3>
+                                        <span class="item-price-small"><?= format_brl((int) round($unitPrice * 100)) ?></span>
+                                    </div>
+                                    <p class="item-description">Estoque disponível: <?= (int) $product['estoque'] ?></p>
+                                </div>
+                            </div>
+
+                            <div class="quantity-price-row">
+                                <div class="quantity-control">
+                                    <button class="btn-qty btn-minus" type="button">
+                                        <i class="<?= $quantity === 1 ? 'fa-regular fa-trash-can' : 'fa-solid fa-minus' ?>"></i>
+                                    </button>
+                                    <span class="qty-number"><?= $quantity ?></span>
+                                    <button class="btn-qty btn-plus" type="button">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                                <span class="item-price-total"><?= format_brl($lineCents) ?></span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+
+            <div class="divider">
+                <i class="fa-solid fa-sparkles divider-icon">✦</i>
+            </div>
+
+            <h3 class="section-title">Deseja adicionar algo?</h3>
+            
+            <div class="cross-sell-grid">
+                <div class="cross-sell-card">
+                    <div class="cross-sell-img-wrapper">
+                        <img src="https://via.placeholder.com/60" alt="Cortador">
+                        <button class="add-btn" type="button" data-title="Cortador" data-price="4.99">+</button>
+                    </div>
+                    <span class="cross-sell-title">Cortador</span>
+                    <span class="cross-sell-price">R$ 4,99</span>
+                </div>
+
+                <div class="cross-sell-card">
+                    <div class="cross-sell-img-wrapper">
+                        <img src="https://via.placeholder.com/60" alt="Confeites">
+                        <button class="add-btn" type="button" data-title="Confeites" data-price="3.50">+</button>
+                    </div>
+                    <span class="cross-sell-title">Confeites</span>
+                    <span class="cross-sell-price">R$ 3,50</span>
+                </div>
+
+                <div class="cross-sell-card">
+                    <div class="cross-sell-img-wrapper">
+                        <img src="https://via.placeholder.com/60" alt="Embalagem">
+                        <button class="add-btn" type="button" data-title="Embalagem" data-price="2.00">+</button>
+                    </div>
+                    <span class="cross-sell-title">Embalagem</span>
+                    <span class="cross-sell-price">R$ 2,00</span>
+                </div>
+
+                <div class="cross-sell-card">
+                    <div class="cross-sell-img-wrapper">
+                        <img src="https://via.placeholder.com/60" alt="Vela Fofa">
+                        <button class="add-btn" type="button" data-title="Vela Fofa" data-price="5.00">+</button>
+                    </div>
+                    <span class="cross-sell-title">Vela Fofa</span>
+                    <span class="cross-sell-price">R$ 5,00</span>
+                </div>
+            </div>
+
+            <div class="divider">
+                <i class="fa-solid fa-sparkles divider-icon">✦</i>
+            </div>
+
+            <div class="subtotal-row">
+                <span class="subtotal-label">Subtotal</span>
+                <span class="subtotal-value" id="modal-subtotal-val"><?= format_brl($subtotalCents) ?></span>
+            </div>
+
+            <div class="loyalty-banner">
+                <i class="fa-solid fa-trophy"></i>
+                <span>Registre-se para ganhar pontos de fidelidade</span>
+            </div>
+
+            <button class="checkout-btn" id="modal-checkout-btn" type="button">Finalizar Pedido</button>
+
+        </div>
+    </div>
+
+   
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+       
             const botoesColeta = document.querySelectorAll('.botao-opcao');
             const campoMetodoColeta = document.getElementById('metodo-coleta');
             const camposEntrega = document.getElementById('campos-entrega');
@@ -384,6 +857,159 @@ function format_brl(int $cents): string
                 });
             });
 
+     
+            const botaoTop = document.getElementById('botaoTop');
+            const modalOverlay = document.getElementById('modal-carrinho-overlay');
+            const closeCartModal = document.getElementById('close-cart-modal');
+            const modalCheckoutBtn = document.getElementById('modal-checkout-btn');
+
+       
+            if (botaoTop && modalOverlay) {
+                botaoTop.addEventListener('click', () => {
+                    modalOverlay.classList.add('active');
+                });
+            }
+
+   
+            if (closeCartModal && modalOverlay) {
+                closeCartModal.addEventListener('click', () => {
+                    modalOverlay.classList.remove('active');
+                });
+            }
+
+    
+            if (modalOverlay) {
+                modalOverlay.addEventListener('click', (e) => {
+                    if (e.target === modalOverlay) {
+                        modalOverlay.classList.remove('active');
+                    }
+                });
+            }
+
+        
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
+                    modalOverlay.classList.remove('active');
+                }
+            });
+
+   
+            if (modalCheckoutBtn && modalOverlay) {
+                modalCheckoutBtn.addEventListener('click', () => {
+                    modalOverlay.classList.remove('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            const modalCartItems = document.getElementById('modal-cart-items');
+            const modalSubtotalVal = document.getElementById('modal-subtotal-val');
+
+            function updateModalSubtotal() {
+                let totalCents = 0;
+                const itemBlocks = modalCartItems.querySelectorAll('.cart-item-block');
+
+                itemBlocks.forEach(block => {
+                    const price = parseFloat(block.dataset.price) || 0;
+                    const qty = parseInt(block.querySelector('.qty-number').textContent, 10) || 0;
+                    totalCents += Math.round(price * 100) * qty;
+                });
+
+                if (modalSubtotalVal) {
+                    modalSubtotalVal.textContent = formatarReais(totalCents);
+                }
+
+                if (itemBlocks.length === 0) {
+                    modalCartItems.innerHTML = '<p class="empty-cart-msg">Seu carrinho está vazio.</p>';
+                }
+            }
+
+            if (modalCartItems) {
+                modalCartItems.addEventListener('click', (e) => {
+                    const btnMinus = e.target.closest('.btn-minus');
+                    const btnPlus = e.target.closest('.btn-plus');
+
+                    if (btnMinus) {
+                        const itemBlock = btnMinus.closest('.cart-item-block');
+                        const qtySpan = itemBlock.querySelector('.qty-number');
+                        const totalSpan = itemBlock.querySelector('.item-price-total');
+                        const price = parseFloat(itemBlock.dataset.price) || 0;
+                        let qty = parseInt(qtySpan.textContent, 10);
+
+                        qty -= 1;
+                        if (qty <= 0) {
+                            itemBlock.remove();
+                        } else {
+                            qtySpan.textContent = qty;
+                            totalSpan.textContent = formatarReais(Math.round(price * 100) * qty);
+                            
+                            if (qty === 1) {
+                                btnMinus.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+                            }
+                        }
+                        updateModalSubtotal();
+                    }
+
+                    if (btnPlus) {
+                        const itemBlock = btnPlus.closest('.cart-item-block');
+                        const qtySpan = itemBlock.querySelector('.qty-number');
+                        const totalSpan = itemBlock.querySelector('.item-price-total');
+                        const btnMinus = itemBlock.querySelector('.btn-minus');
+                        const price = parseFloat(itemBlock.dataset.price) || 0;
+                        let qty = parseInt(qtySpan.textContent, 10);
+
+                        qty += 1;
+                        qtySpan.textContent = qty;
+                        totalSpan.textContent = formatarReais(Math.round(price * 100) * qty);
+
+                        if (qty > 1 && btnMinus) {
+                            btnMinus.innerHTML = '<i class="fa-solid fa-minus"></i>';
+                        }
+                        updateModalSubtotal();
+                    }
+                });
+            }
+
+            const crossSellBtns = document.querySelectorAll('.cross-sell-card .add-btn');
+            crossSellBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const title = this.dataset.title;
+                    const price = parseFloat(this.dataset.price);
+
+                    const emptyMsg = modalCartItems.querySelector('.empty-cart-msg');
+                    if (emptyMsg) {
+                        emptyMsg.remove();
+                    }
+
+                    const newBlock = document.createElement('div');
+                    newBlock.className = 'cart-item-block';
+                    newBlock.dataset.price = price;
+                    newBlock.innerHTML = `
+                        <div class="cart-item">
+                            <div class="item-img-container">
+                                <img src="https://via.placeholder.com/100" alt="${title}" class="item-img">
+                            </div>
+                            <div class="item-details">
+                                <div class="item-header">
+                                    <h3 class="item-title">${title}</h3>
+                                    <span class="item-price-small">${formatarReais(Math.round(price * 100))}</span>
+                                </div>
+                                <p class="item-description">Adicionado das sugestões</p>
+                            </div>
+                        </div>
+                        <div class="quantity-price-row">
+                            <div class="quantity-control">
+                                <button class="btn-qty btn-minus" type="button"><i class="fa-regular fa-trash-can"></i></button>
+                                <span class="qty-number">1</span>
+                                <button class="btn-qty btn-plus" type="button"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <span class="item-price-total">${formatarReais(Math.round(price * 100))}</span>
+                        </div>
+                    `;
+
+                    modalCartItems.appendChild(newBlock);
+                    updateModalSubtotal();
+                });
+            });
         });
     </script>
 </body>
