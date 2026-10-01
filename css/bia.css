@@ -104,7 +104,7 @@ main {
 .container-foto {
     position: relative;
     width: 100%;
-    margin-top: 105px;
+    margin-top: 95px;
 }
 
 .header-logo {
@@ -327,7 +327,6 @@ main {
     justify-content: center;
     position: relative;
     overflow: hidden;
-    cursor: pointer;
 }
 
 .img-box img {
@@ -373,7 +372,7 @@ main {
 
 .btn-add {
     background-color: #da627d;
-    padding: 10px 55px;
+    padding: 10px 95px;
     border-radius: 66px;
     font-family: "Sora", sans-serif;
     font-size: 17px;
@@ -392,6 +391,11 @@ main {
     text-decoration: none;
     font-weight: bold;
     cursor: pointer;
+}
+
+.none{
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 .titlepts {
@@ -603,13 +607,13 @@ main {
 
 .litleTitle {
     color: #9b5833;
-    margin-left: 70px;
+    margin-left: 170px;
     margin-top: 50px;
     font-size: 25px;
 }
 
 .titleSobre {
-    margin-left: 70px;
+    margin-left: 170px;
     font-size: 40px;
 }
 
@@ -624,15 +628,186 @@ main {
 .pink-sbr {
     background-color: #eed8dc;
     border-radius: 36px;
-    margin-left: 70px;
-    margin-right: 70px;
+    margin-left: 220px;
+    margin-right: 220px;
     display: grid;
     grid-template-columns: 200px 2fr;
-
 }
 
-.aspas{
-    width: 50px;
-    margin-left: 50px;
-    margin-top: 7px;
+.aspas {
+    width: 60px;
+    margin-left: 100px;
+    margin-top: 25px;
+}
+
+.txt-sobre {
+    line-height: 1.5;
+    font-size: 30px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.txt-fdr {
+    font-size: 27px;
+}
+
+.txt-fd {
+    font-weight: bold;
+}
+
+.box-pink {
+    margin-top: 200px;
+    background-color: #fae8ea;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 40px;
+}
+
+.box-item {
+    display: flex;
+    flex-direction: column;
+    margin-left: 150px;
+}
+
+.txt-pq {
+    color: #da627d;
+    font-family: "Carattere", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 60px;
+    margin: 0;
+    margin-top: 50px;
+    margin-left: 100px;
+}
+
+.txt-normal {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+    margin: 0;
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 50px auto;
+    padding-left: 50px;
+    margin-top: 200px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 12px;
+    width: 2px;
+    background-color: #c99a6e;
+}
+
+.historia {
+    position: relative;
+    background-color: #eed8dc;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 150px;
+}
+
+.historia::before {
+    content: '';
+    position: absolute;
+    left: -46px;
+    top: 20px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #4a2f1d;
+}
+
+.historia .ano {
+    display: block;
+    color: #c99a6e;
+    font-size: 30px;
+    margin-bottom: 6px;
+}
+
+.historia h2 {
+    margin: 0 0 8px 0;
+    font-size: 40px;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+.historia p {
+    margin: 0;
+    color: #2b2b2b;
+    line-height: 1.45;
+    font-size: 30px;
+}
+
+.ftsobre{
+    width: 100%;
+}
+
+
+.container-fotos {
+    position: relative;
+    width: 100%;
+    margin-top: 0px;
+}
+
+
+.txt-fotos {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    font-weight: 200;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    transform: translate(-50%, -50%);
+    color: #ffa5ab;
+    text-align: center;
+    margin: 0;
+}
+
+.texto-fotos {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-family: "Qwitcher Grypen", cursive;
+    font-weight: 700;
+    font-size: 80px;
+    font-style: normal;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+}
+
+.btn-fotos {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    font-size: 40px;
+    font-family: "Belleza", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 1px 60px;
+    border-radius: 36px;
+    transform: translate(-50%, -50%);
+    color: #000;
+    text-align: center;
+    background-color: #fae8ea;
+    margin: 0;
+}
+
+.btn-fotos:hover {
+    background-color: #fae8eac5;
+    cursor: pointer;
+}
+
+.bck-pink {
+    background-color: #eaa4b1;
+    width: 100%;
+    height: 140px;
 }

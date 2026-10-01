@@ -3,7 +3,7 @@ require_once './CRUD/crud.php';
 
 date_default_timezone_set('America/Sao_Paulo');
 
-$sqlBestSellers = "
+$sqlprodutos = "
     SELECT 
         p.id,
         p.nome,
@@ -22,9 +22,9 @@ $sqlBestSellers = "
     LIMIT 4
 ";
 
-$stmt = $pdo->prepare($sqlBestSellers);
+$stmt = $pdo->prepare($sqlprodutos);
 $stmt->execute();
-$produtosBestSellers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$produtosNew = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $totalAvaliacoes = readALL($pdo, 'avaliacoes');
 
@@ -59,33 +59,32 @@ $avaliacao = readAll($pdo, 'avaliacoes', '1 ORDER BY id DESC LIMIT 3');
         <div class="container-foto">
             <img src="./imagens/homeft.png" class="fthome" alt="Home">
             <h1 class="texto-foto">Felicidade em cada pedaço</h1>
-            <a href="#"><button type="button" class="btn-foto">Descubra sua Felicidade</button></a>
+            <a href="sobre.php"><button type="button" class="btn-foto">Descubra sua Felicidade</button></a>
         </div>
         <div class="bck-pink"></div>
 
         <section class="container-creme">
             <br>
-            <h1 class="title">Nossos Best-<strong class="destaque">Sellers</strong></h1>
+            <h1 class="title">Ultimos <strong class="destaque">Lançamentos</strong></h1>
             <div class="grid-best">
 
-                <?php if (empty($produtosBestSellers)): ?>
-                    <p>Nenhum produto mais vendido encontrado.</p>
+                <?php if (empty($produtosNew)): ?>
+                    <p>Nenhum produto encontrado.</p>
                 <?php else: ?>
-                    <?php foreach ($produtosBestSellers as $item): ?>
+                    <?php foreach ($produtosNew as $item): ?>
                         <?php $notaIndividual = round($item['media_nota']); ?>
-                        
+
                         <div class="grid-seller">
-                            <a href="./detalhe.php?id=<?= $item['id'] ?>">
-                                <div class="img-seller">
-                                    <img src="./imagens/<?= htmlspecialchars($item['imagem']) ?>" alt="<?= htmlspecialchars($item['nome']) ?>" />
-                                    <p class="destaque-best">Mais Vendido</p>
-                                </div>
-                            </a>
+                            <div class="img-seller">
+                                <img src="./imagens/<?= htmlspecialchars($item['imagem']) ?>"
+                                    alt="<?= htmlspecialchars($item['nome']) ?>" />
+                                <p class="destaque-best">Novo</p>
+                            </div>
                             <h4 class="nomeProduto"><?= htmlspecialchars($item['nome']) ?></h4>
 
                             <div class="avaliacoes">
                                 <?php if ($notaIndividual == 0): ?>
-                                    <p>Nenhuma Avaliação Disponível</p>
+                                    <p class="none">Nenhuma Avaliação Disponível</p>
                                 <?php else: ?>
                                     <?php for ($i = 1; $i <= $notaIndividual; $i++): ?>
                                         <img src="./imagens/star.png" class="stars" alt="Estrela" />
@@ -94,7 +93,7 @@ $avaliacao = readAll($pdo, 'avaliacoes', '1 ORDER BY id DESC LIMIT 3');
                             </div>
 
                             <p class="price">R$ <?= number_format($item['preco'], 2, ',', '.') ?></p>
-                            <a href="#" class="btn-add">Adicionar ao Carrinho</a>
+                            <a href="./detalhe.php?id=<?= $item['id'] ?>" class="btn-add">Ver Produto</a>
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -104,7 +103,8 @@ $avaliacao = readAll($pdo, 'avaliacoes', '1 ORDER BY id DESC LIMIT 3');
 
         <section>
             <br>
-            <h1 class="titlepts">Cadastre-se, faça seus<br> pedidos e acumule<strong class="destaque">pontos</strong></h1>
+            <h1 class="titlepts">Cadastre-se, faça seus<br> pedidos e acumule<strong class="destaque">pontos</strong>
+            </h1>
             <h1 class="cfn">Como funciona?</h1>
             <div class="grid-pts">
                 <div class="box-cfn">
@@ -120,7 +120,8 @@ $avaliacao = readAll($pdo, 'avaliacoes', '1 ORDER BY id DESC LIMIT 3');
                 <div class="box-cfn">
                     <img src="./imagens/descontos.png" width="230px" alt="Descontos">
                     <strong class="txtpt">Desbloqueie Descontos</strong>
-                    <p class="txtpts">Completou a meta? Resgate um super desconto exclusivo para o seu próximo pedido.</p>
+                    <p class="txtpts">Completou a meta? Resgate um super desconto exclusivo para o seu próximo pedido.
+                    </p>
                 </div>
                 <div class="box-cfn">
                     <img src="./imagens/pecaMais.png" width="230px" alt="Peça Mais">
@@ -133,21 +134,24 @@ $avaliacao = readAll($pdo, 'avaliacoes', '1 ORDER BY id DESC LIMIT 3');
 
         <article class="pink-bgd">
             <h1 class="title-avalia">Últimas Avaliações</h1>
-            <h2 class="txt-clt">O que nossos clientes estão dizendo sobre a <strong class="pinkStrong">gente!</strong></h2>
-            <h2 class="txt-cls">Classificação de <?= $mediaGeralArredondada ?>/5 estrelas baseadas em avaliações de clientes!</h2>
-            
+            <h2 class="txt-clt">O que nossos clientes estão dizendo sobre a <strong class="pinkStrong">gente!</strong>
+            </h2>
+            <h2 class="txt-cls">Classificação de <?= $mediaGeralArredondada ?>/5 estrelas baseadas em avaliações de
+                clientes!</h2>
+
             <div class="grid-avalia">
                 <?php if (empty($avaliacao)): ?>
                     <p>Nenhuma avaliação disponível.</p>
                 <?php else: ?>
                     <?php foreach ($avaliacao as $avaliacoes): ?>
-                        <?php 
-                            $dataHora = new DateTime($avaliacoes['data_avaliacao']);
-                            $notaComentario = isset($avaliacoes['nota']) ? round($avaliacoes['nota']) : (int)$mediaGeralArredondada;
+                        <?php
+                        $dataHora = new DateTime($avaliacoes['data_avaliacao']);
+                        $notaComentario = isset($avaliacoes['nota']) ? round($avaliacoes['nota']) : (int) $mediaGeralArredondada;
                         ?>
                         <div class="box-avalia">
                             <div class="topo-avalia">
-                                <img src="./imagens/<?= htmlspecialchars($avaliacoes['imagem']) ?>" alt="Foto de perfil" class="foto-perfil">
+                                <img src="./imagens/<?= htmlspecialchars($avaliacoes['imagem']) ?>" alt="Foto de perfil"
+                                    class="foto-perfil">
                                 <div class="info-usuario">
                                     <h1><?= htmlspecialchars($avaliacoes['nome']) ?></h1>
                                     <div class="estrelas">
@@ -175,4 +179,5 @@ $avaliacao = readAll($pdo, 'avaliacoes', '1 ORDER BY id DESC LIMIT 3');
 
     <?php require_once "./partials/footer.php"; ?>
 </body>
+
 </html>
