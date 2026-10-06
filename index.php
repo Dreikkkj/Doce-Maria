@@ -5,16 +5,16 @@ date_default_timezone_set('America/Sao_Paulo');
 
 $sqlprodutos = "
     SELECT 
-        p.id,
-        p.nome,
+        p.id_produto AS id,
+        p.nome_produto AS nome,
         p.preco,
-        p.imagem,
+        p.img_produto AS imagem,
         COALESCE(AVG(a.nota), 0) AS media_nota,
         COUNT(a.id) AS total_avaliacoes
-    FROM produto p
-    LEFT JOIN avaliacoes a ON a.produto_id = p.id
-    GROUP BY p.id, p.nome, p.preco, p.imagem
-    ORDER BY p.id DESC
+    FROM produtos p
+    LEFT JOIN avaliacoes a ON a.produto_id = p.id_produto
+    GROUP BY p.id_produto, p.nome_produto, p.preco, p.img_produto
+    ORDER BY p.id_produto DESC
     LIMIT 4
 ";
 
@@ -22,7 +22,7 @@ $stmt = $pdo->prepare($sqlprodutos);
 $stmt->execute();
 $produtosNew = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$totalAvaliacoes = readALL($pdo, 'avaliacoes');
+$totalAvaliacoes = readAll($pdo, 'avaliacoes');
 
 if (!empty($totalAvaliacoes)) {
     $mediaGeralNota = array_sum(array_column($totalAvaliacoes, 'nota')) / count($totalAvaliacoes);
@@ -89,7 +89,7 @@ $avaliacao = readAll($pdo, 'avaliacoes', '1 ORDER BY id DESC LIMIT 3');
                             </div>
 
                             <p class="price">R$ <?= number_format($item['preco'], 2, ',', '.') ?></p>
-                            <a href="./detalhe.php?id=<?= $item['id'] ?>" class="btn-add">Ver Produto</a>
+                            <a href="./detalhes.php?id_produto=<?= (int) $item['id'] ?>" class="btn-add">Ver Produto</a>
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>

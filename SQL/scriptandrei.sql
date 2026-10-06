@@ -1,19 +1,9 @@
 CREATE DATABASE IF NOT EXISTS db_docemaria;
 USE db_docemaria;
 
-
-SET FOREIGN_KEY_CHECKS = 0;
-
-DROP TABLE IF EXISTS itens_pedido;
-DROP TABLE IF EXISTS pedidos;
-DROP TABLE IF EXISTS produtos;
-DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS configuracoes_site;
 
-SET FOREIGN_KEY_CHECKS = 1;
-
-
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id_user INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -25,26 +15,27 @@ CREATE TABLE usuarios (
 ) ENGINE=InnoDB;
 
 
-CREATE TABLE produtos (
+CREATE TABLE IF NOT EXISTS produtos (
     id_produto INT AUTO_INCREMENT PRIMARY KEY,
     img_produto VARCHAR(255),
     nome_produto VARCHAR(100) NOT NULL,
     descricao TEXT,
     categoria ENUM(
-        'Cookies', 'Cupcakes', 'Brownies', 'Doces', 
-        'Bolos', 'Alfajor', 'Brigadeiro', 'Cannoli', 
+        'Cookies', 'Cupcakes', 'Brownies', 'Doces',
+        'Bolos', 'Alfajor', 'Brigadeiro', 'Cannoli',
         'Donuts', 'Eclair', 'Macaron', 'Pirulitos'
     ) NOT NULL,
     peso_tamanho VARCHAR(50),
     preco DECIMAL(10,2) NOT NULL,
     estoque INT NOT NULL DEFAULT 0,
     status_estoque ENUM('Em estoque', 'Estoque baixo', 'Esgotado') DEFAULT 'Em estoque',
-    estrelas INT NULL CHECK (estrelas BETWEEN 0 AND 5),
-    eh_pacote_buffet BOOLEAN DEFAULT FALSE 
+    estrelas DECIMAL(2,1) NULL CHECK (estrelas BETWEEN 0 AND 5),
+    eh_pacote_buffet BOOLEAN DEFAULT FALSE
 ) ENGINE=InnoDB;
 
+ALTER TABLE produtos MODIFY estrelas DECIMAL(2,1) NULL;
 
-CREATE TABLE pedidos (
+CREATE TABLE IF NOT EXISTS pedidos (
     id_pedido INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente INT NOT NULL,
     data_pedido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -66,7 +57,7 @@ CREATE TABLE pedidos (
 ) ENGINE=InnoDB;
 
 
-CREATE TABLE itens_pedido (
+CREATE TABLE IF NOT EXISTS itens_pedido (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
     id_pedido INT NOT NULL,
     id_produto INT NOT NULL,
@@ -76,11 +67,15 @@ CREATE TABLE itens_pedido (
     FOREIGN KEY (id_produto) REFERENCES produtos (id_produto)
 ) ENGINE=InnoDB;
 
-CREATE TABLE configuracoes_site (
+CREATE TABLE IF NOT EXISTS avaliacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    chave VARCHAR(50) NOT NULL UNIQUE,
-    valor TEXT NOT NULL,
-    descricao VARCHAR(150)
+    produto_id INT NULL,
+    nome VARCHAR(100) NOT NULL,
+    imagem VARCHAR(255) NOT NULL DEFAULT 'usuario.png',
+    nota INT NOT NULL CHECK (nota BETWEEN 0 AND 5),
+    comentario TEXT NOT NULL,
+    data_avaliacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (produto_id) REFERENCES produtos (id_produto) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 
@@ -95,41 +90,91 @@ VALUES
 INSERT INTO produtos 
 (img_produto, nome_produto, descricao, categoria, peso_tamanho, preco, estoque, status_estoque, estrelas)
 VALUES 
-('donut_doce_maria.png', 'Donut Especial Doce Maria', 'O carro-chefe da loja! Donut macio com cobertura rosa de morango e calda de chocolate escorrendo.', 'Donuts', 'Unidade (90g)', 12.90, 45, 'Em estoque', 5),
-('donut_boston_cream.png', 'Donut Boston Cream', 'Massa fofinha recheada com creme de baunilha e cobertura de ganache de chocolate.', 'Donuts', 'Unidade (100g)', 13.90, 8, 'Estoque baixo', 5),
-('donut_glaceado.png', 'Donut Glaceado Tradicional', 'O clássico americano com casquinha crocante de açúcar derretido.', 'Donuts', 'Unidade (75g)', 9.90, 0, 'Esgotado', 4),
-('brigadeiro_gourmet.png', 'Brigadeiro Gourmet ao Leite', 'Brigadeiro feito com chocolate nobre belga e confeitos crocantes.', 'Brigadeiro', 'Unidade (25g)', 4.50, 60, 'Em estoque', 5),
-('brigadeiro_pistache.png', 'Brigadeiro de Pistache', 'Brigadeiro cremoso de pistache coberto com pistache xará triturado.', 'Brigadeiro', 'Unidade (25g)', 6.00, 15, 'Em estoque', 5),
-('caixa_brigadeiros.png', 'Caixa Sortida de Brigadeiros', 'Caixa presenteável com 12 brigadeiros sortidos (Ao leite, Ninho com Nutella e Pistache).', 'Brigadeiro', 'Caixa (300g)', 48.00, 6, 'Estoque baixo', 5),
-('cookie_tradicional.png', 'Cookie Tradicional gotas de chocolate', 'Massa macia por dentro e crocante por fora com gotas de chocolate meio amargo.', 'Cookies', 'Unidade (60g)', 15.90, 28, 'Em estoque', 5),
-('cookie_red_velvet.png', 'Cookie Red Velvet com Ninho', 'Massa red velvet recheada com brigadeiro de leite Ninho cremoso.', 'Cookies', 'Unidade (75g)', 17.50, 4, 'Estoque baixo', 5),
-('cookie_granulado.png', 'Pote de Mini Cookies Granulados', 'Pote recheado com mini cookies crocantes perfeitos para viagem.', 'Cookies', 'Pote (300g)', 23.90, 15, 'Em estoque', 5),
-('cupcake_morango.png', 'Cupcake de Morango e Chantilly', 'Massa de baunilha, recheio de geleia artesanal de morango e cobertura de chantilly.', 'Cupcakes', 'Unidade (80g)', 12.50, 12, 'Em estoque', 4),
-('cupcake_choc.png', 'Cupcake Duplo Chocolate', 'Massa de cacau 70% recheada e coberta com ganache intensa.', 'Cupcakes', 'Unidade (85g)', 13.50, 2, 'Estoque baixo', 5),
-('brownie_choc.png', 'Brownie de Chocolate com Nozes', 'Brownie denso, bem molhadinho, com pedaços de nozes americanas.', 'Brownies', 'Unidade (70g)', 18.00, 5, 'Estoque baixo', 5),
-('brownie_nutella.png', 'Marmita de Brownie com Nutella', 'Pedaços de brownie submersos em pura Nutella e leite Ninho.', 'Brownies', 'Marmita (250g)', 29.90, 10, 'Em estoque', 5),
-('bolo_cenoura.png', 'Fatia de Bolo de Cenoura', 'O clássico bolo de cenoura caseiro com casca durinha de chocolate.', 'Bolos', 'Fatia (120g)', 14.90, 3, 'Estoque baixo', 4),
-('bolo_red_velvet.png', 'Fatia de Bolo Red Velvet', 'Massa aveludada com camadas intercaladas de cream cheese frosting.', 'Bolos', 'Fatia (140g)', 18.90, 10, 'Em estoque', 5),
-('alfajor_doce_leite.png', 'Alfajor Tradicional de Doce de Leite', 'Biscoito amanteigado recheado com bastante doce de leite e coberto com chocolate.', 'Alfajor', 'Unidade (60g)', 9.50, 20, 'Em estoque', 5),
-('alfajor_branco.png', 'Alfajor de Chocolate Branco', 'Recheado com doce de leite argentino e coberto com chocolate branco.', 'Alfajor', 'Unidade (60g)', 9.50, 0, 'Esgotado', 4),
-('cannoli_siciliano.png', 'Cannoli Siciliano Tradicional', 'Massa crocante recheada com creme de ricota doce, gotas de chocolate e raspas de laranja.', 'Cannoli', 'Unidade (70g)', 14.50, 8, 'Estoque baixo', 5),
-('cannoli_nutella.png', 'Cannoli de Nutella', 'Massa frita super crocante recheada com creme denso de Nutella.', 'Cannoli', 'Unidade (70g)', 15.00, 14, 'Em estoque', 4),
-('eclair_chocolate.png', 'Eclair de Chocolate (Bomba)', 'Massa choux leve recheada com creme patissière de chocolate e glacê brilhante.', 'Eclair', 'Unidade (80g)', 14.00, 10, 'Em estoque', 5),
-('eclair_cafe.png', 'Eclair de Café e Caramelo', 'Recheada com creme suave de café espresso e cobertura de caramelo salgado.', 'Eclair', 'Unidade (80g)', 14.00, 0, 'Esgotado', 4),
-('macaron_frutas.png', 'Caixa de Macarons Franceses', 'Caixa com 6 macarons sortidos (Frutas vermelhas, Pistache, Chocolate e Baunilha).', 'Macaron', 'Caixa (90g)', 34.00, 12, 'Em estoque', 5),
-('macaron_unidade.png', 'Macaron de Frutas Vermelhas', 'Biscoito à base de farinha de amêndoas com recheio azedinho de frutas vermelhas.', 'Macaron', 'Unidade (15g)', 6.50, 25, 'Em estoque', 4),
-('pirulito_cristal.png', 'Pirulito de Cristal com Flores Comestíveis', 'Pirulito transparente artesanal feito de isomalte com flores naturais comestíveis.', 'Pirulitos', 'Unidade (40g)', 8.50, 18, 'Em estoque', 5),
-('pirulito_chocolate.png', 'Pirulito de Chocolate Decorado', 'Pirulito de chocolate ao leite moldado e decorado para festas.', 'Pirulitos', 'Unidade (50g)', 9.00, 30, 'Em estoque', 4),
-('pao_de_mel.png', 'Pão de Mel com Doce de Leite', 'Massa fofinha com especiarias, recheado com doce de leite e banhado no chocolate.', 'Doces', 'Unidade (50g)', 7.50, 40, 'Em estoque', 5),
-('coxinha_morango.png', 'Coxinha de Morango com Brigadeiro', 'Morango fresco inteiro envolto por uma camada generosa de brigadeiro gourmet.', 'Doces', 'Unidade (100g)', 12.00, 7, 'Estoque baixo', 5),
-('pacote_buffet.png', 'Pacote Buffet de Festa', 'Combo especial com centenas de doces para festas (Acompanha Brinde Exclusivo).', 'Doces', 'Pacote Buffet', 450.00, 10, 'Em estoque', 5);
+('whitepeanut.jpg', 'Donut ChocoPeanut Branco', 'Cobertura de chocolate branco com riscos de chocolate ao leite e pedaços de amendoim torrado.', 'donuts', '85g / Médio', 12.50, 25, 'Em Estoque', 4.8),
+('wconfe.png', 'Donut Confeito Divertido', 'Cobertura de chocolate branco decorada com confeitos coloridos.', 'donuts', '75g / Médio', 10.00, 40, 'Em Estoque', 4.7),
+('socreamy.jpg', 'Donut Creamy Berry', 'Cobertura de mirtilo/amora com calda cremosa e açúcar de confeiteiro salpicado.', 'donuts', '90g / Médio', 13.00, 15, 'Em Estoque', 4.9),
+('Reve.jpg', 'Donut Red Velvet Crunch', 'Cobertura vermelha especial estilo Red Velvet com riscos brancos e esferas crocantes.', 'donuts', '85g / Médio', 14.00, 10, 'Em Estoque', 5.0),
+('purwhite.png', 'Donut Purple Glaze', 'Glacê roxo vibrante finalizado com linhas delicadas de chocolate branco.', 'donuts', '70g / Médio', 11.00, 30, 'Em Estoque', 4.6),
+('purpleconfetti.jpg', 'Donut Lavender Sprinkles', 'Cobertura clara tom lavanda com granulados crocantes de amoreira/frutas vermelhas.', 'donuts', '80g / Médio', 11.50, 20, 'Em Estoque', 4.5),
+('ppinkconfe.jpg', 'Donut Pink Rainbow', 'Cobertura rosa clássica com granulados coloridos estilo arco-íris.', 'donuts', '80g / Médio', 10.50, 50, 'Em Estoque', 4.8),
+('pinkcofe.jpg', 'Donut Pink Sugar Sprinkles', 'Cobertura rosa suave com granulados brancos e rosa em bastão.', 'donuts', '75g / Médio', 10.50, 35, 'Em Estoque', 4.7),
+('peanuts.jpg', 'Donut Caramelo & Amendoim', 'Cobertura de chocolate branco, calda de caramelo e amendoim crocante.', 'donuts', '85g / Médio', 12.50, 18, 'Em Estoque', 4.9),
+('oreod.jpg', 'Donut Oreo & Cream', 'Cobertura cremosa de chocolate com pedaços e biscoito Oreo inteiro.', 'donuts', '95g / Grande', 15.00, 12, 'Em Estoque', 5.0),
+('mermaidd.jpg', 'Donut Mermaid Dust', 'Cobertura azul-turquesa cintilante com acabamento em brilho comestível estilo sereia.', 'donuts', '80g / Médio', 12.00, 22, 'Em Estoque', 4.8),
+('velvet.jpg', 'Cupcake Red Velvet Heart', 'Massa red velvet com cobertura cremosa de cream cheese e confeitos de corações vermelhos.', 'cupcakes', '90g / Médio', 14.00, 25, 'Em Estoque', 4.9),
+('raspberry.jpg', 'Cupcake Fresh Raspberry', 'Massa leve com cobertura de buttercream de framboesa e framboesas frescas no topo.', 'cupcakes', '95g / Médio', 15.50, 18, 'Em Estoque', 4.8),
+('PINKCHERRY.jpg', 'Cupcake Pink Cherry Bliss', 'Massa fofinha com cobertura espiral rosa pastel, pérolas comestíveis e uma cereja no topo.', 'cupcakes', '85g / Médio', 13.50, 30, 'Em Estoque', 4.7),
+('cherryred.jpg', 'Cupcake Triple Cherry Red', 'Massa red velvet com cobertura suave de chantilly e triplo topo de cerejas com calda.', 'cupcakes', '100g / Médio', 16.00, 15, 'Em Estoque', 5.0),
+('oreocup.jpg', 'Cupcake Oreo Cookies & Cream', 'Massa de chocolate amargo com cobertura de buttercream de Oreo e um biscoito Oreo inteiro.', 'cupcakes', '95g / Médio', 14.50, 22, 'Em Estoque', 4.9),
+('incup.jpg', 'Cupcake Mint Choco Cherry', 'Massa de chocolate com cobertura refrescante de menta, pedaços de chocolate e cereja.', 'cupcakes', '90g / Médio', 13.00, 20, 'Em Estoque', 4.6),
+('classipink.jpg', 'Cupcake Pink Pearl Elegance', 'Massa de baunilha com cobertura aveludada rosa pastel e pérolas com esferas douradas.', 'cupcakes', '85g / Médio', 12.50, 28, 'Em Estoque', 4.8),
+('canelacup.jpg', 'Cupcake Cinnamon Spice', 'Massa aromatizada com canela, cobertura cremosa salpicada de cacau e pau de canela decorativo.', 'cupcakes', '85g / Médio', 12.00, 24, 'Em Estoque', 4.7),
+('cafe.jpg', 'Cupcake Cappuccino Crunch', 'Massa de café com chantilly mesclado, calda de chocolate e granulados crocantes.', 'cupcakes', '85g / Médio', 13.50, 26, 'Em Estoque', 4.8),
+('bluee.jpg', 'Cupcake Ocean Blue Sky', 'Massa suave com cobertura espiral azul-celeste e microesferas prateadas comestíveis.', 'cupcakes', '85g / Médio', 12.50, 30, 'Em Estoque', 4.7),
+('azull.png.jpg', 'Pirulito Psicodélico Azul e Branco', 'Pirulito artesanal em espiral com sabor refrescante de mirtilo e blueberry.', 'Pirulitos', '80g / Grande', 8.50, 40, 'Em Estoque', 4.8),
+('bi.png.jpg', 'Pirulito Espiral Pop Bi-Color', 'Pirulito colorido com espirais em tons de rosa, azul e roxo no sabor algodão doce.', 'Pirulitos', '80g / Grande', 8.50, 35, 'Em Estoque', 4.9),
+('blue&re.png.jpg', 'Pirulito Swirl Vermelho e Azul', 'Pirulito psicodélico clássico com espirais vermelhas, azuis e brancas no sabor tutti-frutti.', 'Pirulitos', '80g / Grande', 8.50, 50, 'Em Estoque', 4.7),
+('r&r.png.jpg', 'Pirulito Sweet Pink Swirl', 'Pirulito espiral delicado em tons de rosa e branco com sabor de morango silvestre.', 'Pirulitos', '80g / Grande', 8.00, 45, 'Em Estoque', 4.8),
+('rainbowloli.png.jpg', 'Pirulito Arco-Íris Clássico', 'Pirulito espiral multicolorido e vibrante no delicioso sabor de frutas sortidas.', 'Pirulitos', '80g / Grande', 9.00, 60, 'Em Estoque', 5.0),
+('redd.png.jpg', 'Pirulito Red Swirl com Laço', 'Pirulito espiral vermelho e branco com laço rosa decorativo no palito e sabor de cereja.', 'Pirulitos', '85g / Grande', 9.50, 30, 'Em Estoque', 4.9),
+('simplesazul.png.png', 'Pirulito Esférico Blueberry', 'Pirulito esférico cristalino azul-turquesa com sabor intenso de framboesa azul.', 'Pirulitos', '20g / Pequeno', 3.00, 100, 'Em Estoque', 4.6),
+('simplescere.png.png', 'Pirulito Esférico Cereja', 'Pirulito esférico translúcido na cor magenta brilhante com sabor de cereja intensa.', 'Pirulitos', '20g / Pequeno', 3.00, 100, 'Em Estoque', 4.7),
+('simplessere.png.png', 'Pirulito Esférico Pêssego & Laranja', 'Pirulito esférico em tom gradiente degradê amarelo e rosa com sabor suave de pêssego.', 'Pirulitos', '20g / Pequeno', 3.00, 90, 'Em Estoque', 4.8),
+('bmorango.jpg', 'Fatia Bolo Strawberry Shortcake', 'Pão de ló fofinho intercalado com creme aveludado e morangos frescos no recheio e no topo.', 'bolos', '150g / Fatia', 18.00, 15, 'Em Estoque', 4.9),
+('chocolate.jpg', 'Fatia Bolo Supreme Chocolate', 'Bolo de chocolate intenso com recheio cremoso e cobertura decorada com raspas de chocolate nobre.', 'bolos', '160g / Fatia', 19.50, 12, 'Em Estoque', 4.8),
+('floresta_negra.jpg', 'Fatia Bolo Floresta Negra com Framboesa', 'Massa escura de cacau recheada com mousse de framboesa, pedaços de fruta e cobertura rosa pastel.', 'bolos', '155g / Fatia', 21.00, 10, 'Em Estoque', 4.9),
+('kinder.jpg', 'Fatia Bolo Duyoo Chocolate Trufado', 'Camadas de bolo de chocolate com recheio duplo de creme de leite e ganache cremoso salpicado com granulado.', 'bolos', '165g / Fatia', 22.00, 8, 'Em Estoque', 5.0),
+('redvelvet.jpg', 'Fatia Bolo Red Velvet Classic', 'Massa aveludada red velvet intercalada com recheio tradicional de cream cheese e migalhas decorativas.', 'bolos', '150g / Fatia', 20.00, 14, 'Em Estoque', 4.9),
+('pistache.jpg', 'Fatia Bolo Pistache com Morango', 'Bolo macio de pistache na cor verde com recheio de creme claro, geleia de morango e topo com morango e hortelã.', 'bolos', '155g / Fatia', 23.50, 10, 'Em Estoque', 4.8),
+('cookiechoco.jpg', 'Cookie Double Chocolate Chips', 'Cookie macio e crocante de massa de cacau intensa, recheado e coberto com gotas de chocolate.', 'cookies', '80g / Unidade', 12.00, 25, 'Em Estoque', 4.9),
+('cookienorm.jpg', 'Cookie Classic Chocolate Chips', 'Cookie artesanal dourado e amanteigado, repleto de gotas de chocolate meio amargo derretidas.', 'cookies', '80g / Unidade', 11.00, 30, 'Em Estoque', 4.8),
+('cookiepeda.jpg', 'Cookie Brownie Chunks', 'Cookie estilo brownie com textura fofinha por dentro e topo coberto por pedaços generosos de chocolate nobre.', 'cookies', '85g / Unidade', 13.50, 20, 'Em Estoque', 5.0),
+('brownienorm.jpg', 'Brownie Tradicional Fudge', 'Brownie clássico de chocolate com casquinha crocante por fora e interior denso, húmido e aveludado.', 'brownies', '70g / Unidade', 9.00, 25, 'Em Estoque', 4.9),
+('oreobrown.jpg', 'Brownie recheado com Oreo', 'Massa de brownie super macia e densa com camada generosa de recheio de biscoito Oreo e topo decorado.', 'brownies', '85g / Unidade', 12.50, 18, 'Em Estoque', 5.0),
+('gotasbrown.jpg', 'Brownie com Gotas de Chocolate', 'Brownie intenso de cacau com gotas crocantes de chocolate meio amargo espalhadas na massa e no topo.', 'brownies', '75g / Unidade', 10.50, 22, 'Em Estoque', 4.8);
 
+INSERT INTO produtos
+(img_produto, nome_produto, descricao, categoria, peso_tamanho, preco, estoque, status_estoque, estrelas)
+SELECT legado.imagem, legado.nome, legado.descricao, legado.categoria, 'Porção',
+    legado.preco, 0, 'Esgotado', NULL
+FROM (
+    SELECT 'bolo_morango.png' AS imagem, 'Bolo de Morango Doce Maria' AS nome,
+        'Bolo fofinho recheado com creme e morangos frescos.' AS descricao,
+        'Bolos' AS categoria, 45.00 AS preco
+    UNION ALL SELECT 'brigadeiros.png', 'Brigadeiro Gourmet 12 un',
+        'Caixa com 12 brigadeiros gourmet de chocolate belga.', 'Brigadeiro', 25.00
+    UNION ALL SELECT 'torta_limao.png', 'Torta de Limão Siciliano',
+        'Torta crocante com creme de limão e merengue maçaricado.', 'Doces', 38.00
+    UNION ALL SELECT 'cupcake_red.png', 'Cupcake Red Velvet',
+        'Cupcake aveludado com cobertura cremosa de cream cheese.', 'Cupcakes', 12.50
+    UNION ALL SELECT 'brownie.png', 'Brownie com Nozes',
+        'Brownie super denso, fofinho por dentro e crocante por fora.', 'Brownies', 10.00
+) AS legado
+WHERE NOT EXISTS (
+    SELECT 1 FROM produtos p WHERE p.nome_produto = legado.nome
+);
 
-INSERT INTO configuracoes_site (chave, valor, descricao) VALUES
-('instagram_url', 'https://instagram.com/docemaria.doces', 'Link do Instagram da loja'),
-('whatsapp_numero', '5511999999999', 'Contato do WhatsApp para suporte'),
-('cor_primaria', '#8B4513', 'Marrom'),
-('cor_secundaria', '#FFC0CB', 'Rosa Donuts');
+INSERT INTO avaliacoes (produto_id, nome, imagem, nota, comentario, data_avaliacao)
+SELECT p.id_produto, legado.nome, legado.imagem, legado.nota, legado.comentario,
+    legado.data_avaliacao
+FROM (
+    SELECT 'Bolo de Morango Doce Maria' AS produto, 'Ana Clara' AS nome,
+        'perfil1.png' AS imagem, 5 AS nota,
+        'O bolo de morango é simplesmente maravilhoso! Chegou super fresquinho.' AS comentario,
+        '2026-09-25 12:00:00' AS data_avaliacao
+    UNION ALL SELECT 'Brigadeiro Gourmet 12 un', 'Carlos Eduardo',
+        'perfil2.png', 5, 'Os brigadeiros derretem na boca! Com certeza vou pedir novamente.',
+        '2026-09-26 15:30:00'
+    UNION ALL SELECT 'Torta de Limão Siciliano', 'Beatriz Souza',
+        'perfil3.png', 4, 'A torta de limão é incrível, no ponto exato entre o azedinho e o doce!',
+        '2026-09-27 18:10:00'
+) AS legado
+JOIN produtos p ON p.nome_produto = legado.produto
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM avaliacoes a
+    WHERE a.nome = legado.nome AND a.comentario = legado.comentario
+);
 
 INSERT INTO pedidos 
 (id_cliente, data_pedido, status_pedido, metodo_coleta, nome_coletor, nota_pedido, subtotal, valor_frete, gorjeta, valor_total, metodo_pagamento, possui_brinde)

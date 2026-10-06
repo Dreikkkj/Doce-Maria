@@ -6,7 +6,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 
 $host = 'localhost';
 $usuario = 'root';
 $senha = ''; 
-$banco = 'doce_maria'; 
+$banco = 'db_docemaria';
 
 $conn = new mysqli($host, $usuario, $senha, $banco);
 
@@ -38,7 +38,7 @@ if (!$produto) {
     exit;
 }
 
-// Trata os valores da tabela doce_maria
+// Trata os valores da tabela produtos.
 $nome      = $produto['nome_produto'] ?? 'Produto sem nome';
 $preco     = $produto['preco'] ?? 0;
 $imagem    = $produto['img_produto'] ?? 'cookie.png';

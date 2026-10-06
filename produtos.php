@@ -4,7 +4,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 
 $host = 'localhost';
 $usuario = 'root';
 $senha = ''; 
-$banco = 'doce_maria'; 
+$banco = 'db_docemaria';
 
 $conn = new mysqli($host, $usuario, $senha, $banco);
 
@@ -17,10 +17,10 @@ $categoria_selecionada = $_GET['categoria'] ?? '';
 if (!empty($categoria_selecionada)) {
     $categoria_safe = $conn->real_escape_string($categoria_selecionada);
 
-    $sql = "SELECT * FROM produtos WHERE categoria = '$categoria_safe' GROUP BY nome_produto";
+    $sql = "SELECT * FROM produtos WHERE categoria = '$categoria_safe' ORDER BY nome_produto";
 } else {
 
-    $sql = "SELECT * FROM produtos GROUP BY nome_produto";
+    $sql = "SELECT * FROM produtos ORDER BY nome_produto";
 }
 
 $resultado = $conn->query($sql);
