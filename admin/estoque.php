@@ -1,5 +1,16 @@
 <?php
 session_start();
+
+if (isset($_POST['logout'])) {
+
+    session_unset();
+
+    session_destroy();
+    header('Location: ../login.php');
+    exit();
+}
+
+
 require_once __DIR__ . '/../php/crud.php';
 
 if (!isset($_SESSION['autenticado'])) {
@@ -42,6 +53,9 @@ if (!empty($produtos)) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="icon" type="image/png" href="imagens/logo.png">
+    <link rel="stylesheet" href="./css/bia.css">
+
     <style>
         .badge-danger {
             background-color: #FCE8EF;
@@ -51,10 +65,10 @@ if (!empty($produtos)) {
 </head>
 
 <body>
-    <header class="topbar-maria">
 
-
-    </header>
+    <?php
+    require_once '../partials/header.php';
+    ?>
 
     <main class="admin-container">
         <div class="admin-header-saudacao">
@@ -102,13 +116,13 @@ if (!empty($produtos)) {
 
                 <div class="box-actions">
 
-                    <button class="btn-add" style="margin-right: 10px;">
+                    <button class="btn-add2" style="margin-right: 10px;">
                         <a href="pedidos.php" class="btn-adicionar" style="text-decoration: none;">
                             <i class="fa-solid fa-list-check"></i> Ver Pedidos
                         </a>
                     </button>
 
-                    <button class="btn-add">
+                    <button class="btn-add2">
                         <a href="adicionar_produto.php" class="btn-adicionar">
                             <i class="fa-solid fa-plus"></i> Adicionar Produto
                         </a>

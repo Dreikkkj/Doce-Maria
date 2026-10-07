@@ -85,13 +85,15 @@ function redirecionarPorPerfil($tipo)
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="cssEloah/identificacao.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="imagens/logo.png">
+    
     <title>Página de Login - DoceMaria</title>
 </head>
 
+
 <body>
-    <div class="cadastro-container">
+    <div class="login-container">
         <div class="login-header">
             <img src="imagens/logo.png" class="logo-form" alt="Logo Doce Maria">
             <h1>Bem-vindo de volta! <i class="fa-solid fa-heart color-pink"></i></h1>
@@ -130,7 +132,7 @@ function redirecionarPorPerfil($tipo)
             <button type="submit" class="btn-submit">Entrar</button>
         </form>
 
-          <div class="divisor">
+        <div class="divisor">
             <span>ou</span>
         </div>
 

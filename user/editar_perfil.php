@@ -343,7 +343,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <?php endif; ?>
 
-        <!-- Formulário -->
         <section class="card-box">
             <form action="editar_perfil.php" method="POST">
                 

@@ -67,7 +67,7 @@ function formatarData($dataHora) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doce Maria | Meus Pedidos</title>
 
-    <!-- Fontes e Ícones -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -88,7 +88,7 @@ function formatarData($dataHora) {
             padding-bottom: 60px;
         }
 
-        /* Topbar / Cabeçalho Superior */
+ 
         .topbar-cliente {
             display: flex;
             justify-content: flex-end;
@@ -155,14 +155,14 @@ function formatarData($dataHora) {
             color: #333;
         }
 
-        /* Container Principal */
+
         .account-container {
             max-width: 850px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* Cabeçalho com Botão Voltar */
+       
         .page-header {
             display: flex;
             justify-content: space-between;
@@ -201,7 +201,7 @@ function formatarData($dataHora) {
             color: #F07FA6;
         }
 
-        /* Card do Pedido */
+
         .order-card {
             background: #FFFFFF;
             border-radius: 16px;
@@ -232,7 +232,7 @@ function formatarData($dataHora) {
             color: #777;
         }
 
-        /* Badges de Status */
+
         .badge {
             padding: 6px 14px;
             border-radius: 20px;
@@ -246,7 +246,6 @@ function formatarData($dataHora) {
         .badge-entregue { background-color: #E8F5E9; color: #2E7D32; }
         .badge-cancelado { background-color: #F5F5F5; color: #616161; }
 
-        /* Lista de Itens do Pedido */
         .order-items-list {
             padding: 20px 25px;
         }
@@ -296,8 +295,8 @@ function formatarData($dataHora) {
             color: #333;
         }
 
-        /* Rodapé do Pedido */
-        .order-card-footer {
+       
+         .order-card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -366,7 +365,6 @@ function formatarData($dataHora) {
 
 <body>
 
-    <!-- Menu Superior -->
     <header class="topbar-cliente">
         <div class="user-nav">
             <button class="notification-btn" title="Notificações">
@@ -387,7 +385,7 @@ function formatarData($dataHora) {
 
     <main class="account-container">
         
-        <!-- Cabeçalho com o Botão Voltar -->
+ 
         <div class="page-header">
             <div class="header-text">
                 <h1>Meus Pedidos</h1>
@@ -400,7 +398,7 @@ function formatarData($dataHora) {
             </a>
         </div>
 
-        <!-- Lista de Pedidos -->
+
         <section>
             <?php if (!empty($pedidos)): ?>
                 <?php foreach ($pedidos as $pedido): ?>

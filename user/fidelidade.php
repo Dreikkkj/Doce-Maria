@@ -2,7 +2,6 @@
 session_start();
 require_once __DIR__ . '/../php/crud.php';
 
-// Verifica se o usuário está autenticado
 if (!isset($_SESSION['autenticado'])) {
     header("Location: ../login.php");
     exit();
@@ -21,7 +20,7 @@ if (!$usuario) {
     exit();
 }
 
-// Recompensas disponíveis para resgate (pode vir de um banco ou ser estático)
+
 $recompensas = [
     [
         'id' => 1,
@@ -54,7 +53,6 @@ $recompensas = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doce Maria | Programa de Fidelidade</title>
 
-    <!-- Fontes e Ícones -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -115,14 +113,12 @@ $recompensas = [
             color: #333;
         }
 
-        /* Container Principal */
         .account-container {
             max-width: 850px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* Cabeçalho */
         .page-header {
             display: flex;
             justify-content: space-between;
@@ -161,7 +157,6 @@ $recompensas = [
             color: #F07FA6;
         }
 
-        /* Banner Principal dos Pontos */
         .points-banner {
             background: linear-gradient(135deg, #F07FA6 0%, #D81B60 100%);
             color: white;
@@ -199,7 +194,6 @@ $recompensas = [
             opacity: 0.3;
         }
 
-        /* Seção Regras / Como Funciona */
         .rules-card {
             background: #FFFFFF;
             border-radius: 16px;
@@ -254,7 +248,6 @@ $recompensas = [
             color: #777;
         }
 
-        /* Seção Recompensas */
         .section-title {
             font-size: 18px;
             font-weight: 700;
@@ -354,7 +347,7 @@ $recompensas = [
 
 <body>
 
-    <!-- Menu Superior -->
+ 
     <header class="topbar-cliente">
         <div class="user-nav">
             <div class="user-profile-menu">
@@ -370,7 +363,7 @@ $recompensas = [
 
     <main class="account-container">
         
-        <!-- Cabeçalho -->
+   
         <div class="page-header">
             <div class="header-text">
                 <h1>Clube Doce Maria</h1>
@@ -383,7 +376,6 @@ $recompensas = [
             </a>
         </div>
 
-        <!-- Banner com Total de Pontos -->
         <div class="points-banner">
             <div class="banner-info">
                 <label>Seu Saldo Atual</label>
@@ -393,7 +385,7 @@ $recompensas = [
             <span class="material-symbols-outlined banner-icon">workspace_premium</span>
         </div>
 
-        <!-- Como Funciona -->
+
         <section class="rules-card">
             <h3><span class="material-symbols-outlined" style="color: #F07FA6;">info</span> Como funciona o clube?</h3>
             <div class="rules-grid">

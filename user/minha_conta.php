@@ -1,5 +1,16 @@
 <?php
 session_start();
+
+if (isset($_POST['logout'])) {
+
+    session_unset();
+
+    session_destroy();
+    header('Location: ../login.php');
+    exit();
+}
+
+
 require_once __DIR__ . '/../php/crud.php';
 
 
@@ -36,7 +47,7 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doce Maria | Minha Conta</title>
 
-    <!-- Fontes e Ícones -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -124,14 +135,13 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
             color: #333;
         }
 
-        /* Container Principal */
+       
         .account-container {
             max-width: 850px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* Título da Página */
         .page-header {
             margin-bottom: 30px;
         }
@@ -155,7 +165,7 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
             color: #F07FA6;
         }
 
-        /* Cards Gerais */
+     
         .card-box {
             background: #FFFFFF;
             border-radius: 16px;
@@ -165,7 +175,7 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
             margin-bottom: 25px;
         }
 
-        /* Card de Perfil */
+   
         .profile-card {
             display: flex;
             align-items: center;
@@ -223,87 +233,6 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
             color: #D81B60;
         }
 
-        /* Card de Fidelidade */
-        .fidelity-card-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 15px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .fidelity-card-header i {
-            color: #F07FA6;
-        }
-
-        .fidelity-content {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            align-items: center;
-            gap: 35px;
-        }
-
-        .points-number {
-            font-size: 32px;
-            font-weight: 800;
-            color: #F07FA6;
-            line-height: 1;
-        }
-
-        .points-label {
-            font-size: 12px;
-            color: #888;
-            margin-top: 4px;
-        }
-
-        .progress-info {
-            font-size: 12px;
-            color: #777;
-            margin-bottom: 8px;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 10px;
-            background-color: #FCE8EF;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            width: 78%;
-            background-color: #F07FA6;
-            border-radius: 10px;
-        }
-
-        .progress-numbers {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: #999;
-            margin-top: 6px;
-        }
-
-        .btn-fidelity {
-            background-color: #F07FA6;
-            color: white;
-            text-decoration: none;
-            padding: 12px 22px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            transition: background-color 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .btn-fidelity:hover {
-            background-color: #D81B60;
-        }
-
-        /* Seção Acesso Rápido */
         .section-title {
             font-size: 16px;
             font-weight: 700;
@@ -369,21 +298,14 @@ $porcentagem_progresso = min(100, round(($pontos_atuais / $meta_proximo_nivel) *
 
 
     <header class="topbar-cliente">
-        <div class="user-nav">
-            <button class="notification-btn" title="Notificações">
-                <span class="material-symbols-outlined">notifications</span>
-                <span class="notification-badge">2</span>
-            </button>
-            <div class="user-profile-menu">
-                <div class="avatar-sm">
-                    <?php echo htmlspecialchars(strtoupper(substr($usuario['nome'], 0, 1)), ENT_QUOTES, 'UTF-8'); ?>
+        <form method="POST" action="minha_conta.php">
+            <button type="submit" class="btn-add" name="logout" style="margin-right: 10px;">
+                <div class="btn-adicionar" style="text-decoration: none;">
+                    <i class="fa-solid fa-list-check"></i> Logout
                 </div>
-                <span class="user-name-sm">
-                    <?php echo htmlspecialchars($usuario['nome'], ENT_QUOTES, 'UTF-8'); ?>
-                </span>
-                <span class="material-symbols-outlined" style="font-size: 18px; color: #666;">expand_more</span>
-            </div>
-        </div>
+            </button>
+
+        </form>
     </header>
 
     <main class="account-container">
